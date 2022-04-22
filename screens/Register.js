@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { View, Text, StyleSheet, Image, SafeAreaView } from 'react-native';
 
 // assset
@@ -8,6 +9,8 @@ import { FocusStatusBar, RectButton } from '../components';
 import { FormRegis } from '../components';
 
 const Register = () => {
+  const globalState = useSelector((state) => state);
+
   const [formRegis, setFormRegis] = useState({
     fullName: '',
     email: '',
@@ -37,7 +40,7 @@ const Register = () => {
           fontFamily: FONTS.regular,
           color: 'black',
         }}>
-        Register
+        Register {globalState.name}
       </Text>
       <View
         style={{

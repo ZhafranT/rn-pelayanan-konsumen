@@ -1,5 +1,7 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
+import { Provider } from 'react-redux';
+import { store } from './redux';
 
 import { useFonts } from 'expo-font';
 import Spalsh from './screens/Spalsh';
@@ -28,13 +30,15 @@ const App = () => {
   if (!loaded) return null;
 
   return (
-    <NavigationContainer theme={theme}>
-      <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="Register">
-        <Stack.Screen name="Spalsh" component={Spalsh} />
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="Register" component={Register} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer theme={theme}>
+        <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="Register">
+          <Stack.Screen name="Spalsh" component={Spalsh} />
+          <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen name="Register" component={Register} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 };
 export default App;
