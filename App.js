@@ -1,20 +1,40 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+import { useFonts } from 'expo-font';
+import Spalsh from './screens/Spalsh';
+import Home from './screens/Home';
+import Register from './screens/Register';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+const Stack = createNativeStackNavigator();
+
+const theme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    background: 'transparent',
   },
-});
+};
+
+const App = () => {
+  const [loaded] = useFonts({
+    PoppinsBold: require('./assets/fonts/Poppins-Bold.ttf'),
+    PoppinsSemiBold: require('./assets/fonts/Poppins-SemiBold.ttf'),
+    PoppinsMedium: require('./assets/fonts/Poppins-Medium.ttf'),
+    PoppinsRegular: require('./assets/fonts/Poppins-Regular.ttf'),
+    PoppinsExtraLight: require('./assets/fonts/Poppins-ExtraLight.ttf'),
+  });
+
+  if (!loaded) return null;
+
+  return (
+    <NavigationContainer theme={theme}>
+      <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="Register">
+        <Stack.Screen name="Spalsh" component={Spalsh} />
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Register" component={Register} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};
+export default App;
