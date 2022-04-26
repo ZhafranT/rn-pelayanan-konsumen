@@ -40,7 +40,8 @@ const Register = () => {
           fontFamily: FONTS.regular,
           color: 'black',
         }}>
-        Register {globalState.name}
+        Register
+        {globalState.name}
       </Text>
       <View
         style={{
