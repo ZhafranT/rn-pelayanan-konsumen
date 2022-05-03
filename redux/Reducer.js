@@ -1,8 +1,26 @@
-const initialState = {
-  name: 'fran tosa',
+import { combineReducers } from 'redux';
+
+const initialStateRegister = {
+  title: 'jalan jalan di tepi pantai',
+  desc: 'ini desc tentang saya  ',
 };
-const reducer = (state = initialState, action) => {
+
+const registerReducer = (state = initialStateRegister, action) => {
   return state;
 };
 
-export default reducer;
+const initialStateLogin = {
+  info: 'tolong masukan pass',
+  isLogin: true,
+};
+
+const loginReducer = (state = initialStateLogin, action) => {
+  return state;
+};
+
+const reducers = combineReducers({
+  loginReducer,
+  registerReducer,
+});
+
+export default reducers;

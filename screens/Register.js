@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { View, Text, StyleSheet, Image, SafeAreaView } from 'react-native';
 
@@ -9,7 +9,9 @@ import { FocusStatusBar, RectButton } from '../components';
 import { FormRegis } from '../components';
 
 const Register = () => {
-  const globalState = useSelector((state) => state);
+  const registerReducer = useSelector((state) => state.registerReducer);
+
+  console.log(registerReducer);
 
   const [formRegis, setFormRegis] = useState({
     fullName: '',
@@ -41,7 +43,6 @@ const Register = () => {
           color: 'black',
         }}>
         Register
-        {globalState.name}
       </Text>
       <View
         style={{
