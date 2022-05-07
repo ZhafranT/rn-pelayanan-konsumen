@@ -1,20 +1,45 @@
 import { combineReducers } from 'redux';
 
 const initialStateRegister = {
-  title: 'jalan jalan di tepi pantai',
-  desc: 'ini desc tentang saya  ',
+  formRegis: {
+    fullName: '',
+    email: '',
+    nomorHp: '',
+    password: '',
+  },
 };
 
 const registerReducer = (state = initialStateRegister, action) => {
+  if (action.type === 'SET_FORM_REGISTER') {
+    return {
+      ...state,
+      formRegis: {
+        ...state.formRegis,
+        [action.inputType]: action.inputValue,
+      },
+    };
+  }
   return state;
 };
 
 const initialStateLogin = {
-  info: 'tolong masukan pass',
+  formLogin: {
+    email: '',
+    password: '',
+  },
   isLogin: true,
 };
 
 const loginReducer = (state = initialStateLogin, action) => {
+  if (action.type === 'SET_FORM_LOGIN') {
+    return {
+      ...state,
+      formLogin: {
+        ...state.formLogin,
+        [action.inputType]: action.inputValue,
+      },
+    };
+  }
   return state;
 };
 

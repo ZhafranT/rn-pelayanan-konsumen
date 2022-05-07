@@ -1,29 +1,214 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity, Image, View } from 'react-native';
+
 import { assets, COLORS, SHADOWS, SIZES, FONTS } from '../constants';
 
 export const RectButton = ({ title, handlePress }) => {
   return (
-    <TouchableOpacity style={styles.buttonLogin} onPress={handlePress}>
-      <Text style={styles.textLogin}>{title}</Text>
+    <TouchableOpacity
+      style={{
+        width: 235,
+        backgroundColor: COLORS.primary2,
+        borderRadius: 25,
+        paddingVertical: 13,
+        alignItems: 'center',
+        justifyContent: 'center',
+        ...SHADOWS.light,
+      }}
+      onPress={handlePress}>
+      <Text
+        style={{
+          fontSize: SIZES.small,
+          fontWeight: '500',
+          color: COLORS.white,
+          textTransform: 'uppercase',
+          textAlign: 'center',
+        }}>
+        {title}
+      </Text>
     </TouchableOpacity>
   );
 };
 
-const styles = StyleSheet.create({
-  buttonLogin: {
-    width: 235,
-    backgroundColor: COLORS.primary2,
-    borderRadius: 25,
-    paddingVertical: 13,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  textLogin: {
-    fontSize: 12,
-    fontWeight: '500',
-    color: COLORS.white,
-    textTransform: 'uppercase',
-    textAlign: 'center',
-  },
-});
+export const RegisHere = ({ handlePress }) => {
+  return (
+    <TouchableOpacity
+      style={{
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+      onPress={handlePress}>
+      <Text
+        style={{
+          fontSize: SIZES.small,
+          fontFamily: FONTS.regular,
+          marginTop: 15,
+        }}>
+        Belum punya akun ? daftar disini
+      </Text>
+    </TouchableOpacity>
+  );
+};
+
+export const IconBack = ({ handlePress }) => {
+  return (
+    <TouchableOpacity onPress={handlePress}>
+      <Image
+        source={assets.left}
+        style={{
+          width: 40,
+          height: 40,
+        }}
+      />
+    </TouchableOpacity>
+  );
+};
+
+export const Icon = () => {
+  return (
+    <View
+      style={{
+        flexDirection: 'row',
+        marginRight: 10,
+      }}>
+      <IconNotif />
+      <IconHelp />
+    </View>
+  );
+};
+
+export const IconNotif = ({ handlePress }) => {
+  return (
+    <TouchableOpacity onPress={handlePress}>
+      <Image
+        source={assets.notif}
+        style={{
+          width: 30,
+          height: 30,
+        }}
+      />
+    </TouchableOpacity>
+  );
+};
+
+export const IconHelp = ({ handlePress }) => {
+  return (
+    <TouchableOpacity onPress={handlePress}>
+      <Image
+        source={assets.help}
+        style={{
+          width: 30,
+          height: 30,
+          marginLeft: 15,
+        }}
+      />
+    </TouchableOpacity>
+  );
+};
+
+// ======================== home =============================
+
+export const IconNews = ({ handlePress }) => {
+  return (
+    <View>
+      <TouchableOpacity
+        style={{
+          width: 80,
+          height: 80,
+          backgroundColor: COLORS.white,
+          justifyContent: 'center',
+          alignItems: 'center',
+          borderRadius: 15,
+          ...SHADOWS.dark,
+        }}
+        onPress={handlePress}>
+        <Image
+          source={assets.news}
+          style={{
+            width: 50,
+            height: 50,
+          }}
+        />
+      </TouchableOpacity>
+      <Text
+        style={{
+          textAlign: 'center',
+          fontSize: SIZES.font,
+          fontFamily: FONTS.regular,
+          marginTop: 5,
+        }}>
+        Berita
+      </Text>
+    </View>
+  );
+};
+
+export const IconUupk = ({ handlePress }) => {
+  return (
+    <View>
+      <TouchableOpacity
+        style={{
+          width: 80,
+          height: 80,
+          backgroundColor: COLORS.white,
+          justifyContent: 'center',
+          alignItems: 'center',
+          borderRadius: 15,
+          ...SHADOWS.dark,
+        }}
+        onPress={handlePress}>
+        <Image
+          source={assets.uupk}
+          style={{
+            width: 50,
+            height: 50,
+          }}
+        />
+      </TouchableOpacity>
+      <Text
+        style={{
+          textAlign: 'center',
+          fontSize: SIZES.font,
+          fontFamily: FONTS.regular,
+          marginTop: 5,
+        }}>
+        UU PK
+      </Text>
+    </View>
+  );
+};
+
+export const IconPengaduan = ({ handlePress }) => {
+  return (
+    <View>
+      <TouchableOpacity
+        style={{
+          width: 80,
+          height: 80,
+          backgroundColor: COLORS.white,
+          justifyContent: 'center',
+          alignItems: 'center',
+          borderRadius: 15,
+          ...SHADOWS.dark,
+        }}
+        onPress={handlePress}>
+        <Image
+          source={assets.pengaduan}
+          style={{
+            width: 50,
+            height: 50,
+          }}
+        />
+      </TouchableOpacity>
+      <Text
+        style={{
+          textAlign: 'center',
+          fontSize: SIZES.font,
+          fontFamily: FONTS.regular,
+          marginTop: 5,
+        }}>
+        Pengaduan
+      </Text>
+    </View>
+  );
+};

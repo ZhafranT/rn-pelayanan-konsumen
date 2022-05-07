@@ -1,33 +1,50 @@
-import { StyleSheet, Text, View, Image, ScrollView, Dimensions, TouchableHighlight, SafeAreaView, Alert } from 'react-native';
+import { StyleSheet, Text, View, Image, SafeAreaView } from 'react-native';
 import React from 'react';
 
 import { assets, COLORS, SHADOWS, SIZES, FONTS } from '../constants';
 
-import { FocusStatusBar, RectButton } from '../components';
+import { FocusStatusBar, Icon, IconNews, IconPengaduan, IconUupk } from '../components';
+import { useNavigation } from '@react-navigation/native';
 
-const Home = ({ navigation }) => {
+const Home = () => {
+  const navigation = useNavigation();
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.container}>
       <FocusStatusBar background={COLORS.gray} />
       <View style={styles.itemHeader}>
-        <View style={{ paddingLeft: 30 }}>
-          <Image source={assets.logo} />
-        </View>
-        <View style={styles.buttonHeader}>
-          {/* <ButtonIcon title={'Notif'} handlePress={() => navigation.navigate('Notif')} />
-          <Gap width={10} />
-          <ButtonIcon title={'Bantuan'} handlePress={() => navigation.navigate('Bantuan')} /> */}
-        </View>
+        <Image source={assets.logo} style={styles.logo} />
+        <Icon />
       </View>
-      <View style={styles.iconLayanan}>
-        {/* <ButtonIcon
-          title="Berita"
-          type="layanan"
-          // onPress={() => alert('Horee')}
-          onPress={() => navigation.navigate('News')}
-        /> */}
-        {/* <ButtonIcon title="Pengaduan" type="layanan" handlePress={() => navigation.navigate('Laporan')} />
-        <ButtonIcon title="UU PK" type="layanan" handlePress={() => navigation.navigate('Uupk')} /> */}
+      {/* COROSEL */}
+      <View
+        style={{
+          marginTop: 10,
+        }}>
+        <View
+          style={{
+            width: 363,
+            height: 157,
+            backgroundColor: COLORS.gray,
+            borderRadius: 15,
+            marginLeft: 5,
+          }}
+        />
+      </View>
+      {/* HOME activity */}
+      <View
+        style={{
+          height: 65,
+        }}
+      />
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}>
+        <IconNews handlePress={() => navigation.navigate('News')} />
+        <IconPengaduan handlePress={() => navigation.navigate('Pengaduan')} />
+        <IconUupk handlePress={() => navigation.navigate('Uupk')} />
       </View>
     </SafeAreaView>
   );
@@ -36,14 +53,22 @@ const Home = ({ navigation }) => {
 export default Home;
 
 const styles = StyleSheet.create({
-  iconLayanan: {
+  container: {
+    flex: 1,
+    marginLeft: 10,
+    marginRight: 10,
+  },
+
+  itemHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingLeft: 30,
-    paddingTop: 30,
-    flexWrap: 'wrap',
+    alignItems: 'center',
+    marginTop: 10,
   },
-  itemHeader: {},
+  logo: {
+    width: 62,
+    height: 62,
+  },
   buttonHeader: {
     paddingTop: 10,
     flexDirection: 'row',

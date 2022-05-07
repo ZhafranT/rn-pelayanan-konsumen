@@ -3,10 +3,14 @@ import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 
 import { Provider } from 'react-redux';
 import { useFonts } from 'expo-font';
+import { store } from './redux';
 import Spalsh from './screens/Spalsh';
 import Home from './screens/Home';
 import Register from './screens/Register';
-import { store } from './redux';
+import Login from './screens/Login';
+import Pengaduan from './screens/Pengaduan';
+import News from './screens/News';
+import Uupk from './screens/Uupk';
 
 const Stack = createNativeStackNavigator();
 
@@ -32,10 +36,14 @@ const App = () => {
   return (
     <Provider store={store}>
       <NavigationContainer theme={theme}>
-        <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="Register">
+        <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="Home">
           <Stack.Screen name="Spalsh" component={Spalsh} />
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="Register" component={Register} />
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="Pengaduan" component={Pengaduan} />
+          <Stack.Screen name="News" component={News} />
+          <Stack.Screen name="Uupk" component={Uupk} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
