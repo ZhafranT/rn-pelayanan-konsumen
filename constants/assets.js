@@ -13,6 +13,14 @@ import uupk from '../assets/icons/uupk.png';
 import status from '../assets/icons/status.png';
 import pengaduan from '../assets/icons/pengaduan.png';
 
+// asset berita foto
+
+import foto1 from '../assets/pic-news/foto-1.jpg';
+import foto2 from '../assets/pic-news/foto-2.jpg';
+import foto3 from '../assets/pic-news/foto-3.jpg';
+import foto4 from '../assets/pic-news/foto-4.jpg';
+import foto5 from '../assets/pic-news/foto-5.jpg';
+
 export default {
   logo,
   splash,
@@ -27,4 +35,9 @@ export default {
   uupk,
   status,
   pengaduan,
+  foto1,
+  foto2,
+  foto3,
+  foto4,
+  foto5,
 };

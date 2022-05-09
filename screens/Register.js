@@ -64,7 +64,7 @@ const Register = () => {
           alignItems: 'center',
           marginTop: 10,
         }}>
-        <RectButton title="Daftar" handlePress={sendData} />
+        <RectButton title="Daftar" handlePress={() => navigation.navigate('News', { sendData })} />
       </View>
     </SafeAreaView>
   );

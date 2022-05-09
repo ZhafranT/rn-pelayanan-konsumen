@@ -5,6 +5,8 @@ import { assets, COLORS, SHADOWS, SIZES, FONTS } from '../constants';
 
 import { FocusStatusBar, Icon, IconNews, IconPengaduan, IconUupk } from '../components';
 import { useNavigation } from '@react-navigation/native';
+import Carousel from '../components/Carousel';
+import { CarouselData } from '../constants';
 
 const Home = () => {
   const navigation = useNavigation();
@@ -20,7 +22,9 @@ const Home = () => {
         style={{
           marginTop: 10,
         }}>
-        <View
+        <Carousel data={CarouselData} />
+
+        {/* <View
           style={{
             width: 363,
             height: 157,
@@ -28,12 +32,12 @@ const Home = () => {
             borderRadius: 15,
             marginLeft: 5,
           }}
-        />
+        /> */}
       </View>
       {/* HOME activity */}
       <View
         style={{
-          height: 65,
+          height: 25,
         }}
       />
       <View
