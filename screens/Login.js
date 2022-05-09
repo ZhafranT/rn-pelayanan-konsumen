@@ -1,11 +1,10 @@
-import React from 'react';
 import { View, Text, SafeAreaView, StyleSheet, Image } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
-
-import { FormLogin } from '../components/Form';
-import { FocusStatusBar, IconBack, RectButton, RegisHere } from '../components';
+// assset
 import { assets, COLORS, SHADOWS, SIZES, FONTS } from '../constants';
+
+import { FocusStatusBar, IconBack, RectButton, RegisHere, FormLogin } from '../components';
 import { setFormLogin } from '../redux';
 
 const Login = () => {
@@ -14,10 +13,6 @@ const Login = () => {
   const navigation = useNavigation();
 
   const onChangeLogin = (value, input) => {
-    // setFormRegis({
-    //   ...formRegis,
-    //   [input]: value,
-    // });
     dispatch(setFormLogin(input, value));
   };
 
@@ -69,4 +64,5 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
 });
+
 export default Login;

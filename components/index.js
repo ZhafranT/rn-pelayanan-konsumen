@@ -1,16 +1,5 @@
 import FocusStatusBar from './FocusStatusBar';
-import HomeHeader from './HomeHeader';
-import { RectButton, RegisHere, Icon, IconNews, IconUupk, IconPengaduan } from './Button';
-import { FormRegis } from './Form';
+import { RectButton, RegisHere, Icon, IconNews, IconUupk, IconPengaduan, IconBack } from './Button';
+import { FormRegis, FormPengaduan, FormLogin } from './Form';
 
-export { 
-    FocusStatusBar, 
-    HomeHeader, 
-    RectButton, 
-    FormRegis, 
-    RegisHere, 
-    Icon, 
-    IconNews, 
-    IconUupk, 
-    IconPengaduan, 
-};
+export { FocusStatusBar, RectButton, FormRegis, RegisHere, Icon, IconNews, IconUupk, IconPengaduan, FormPengaduan, FormLogin, IconBack };

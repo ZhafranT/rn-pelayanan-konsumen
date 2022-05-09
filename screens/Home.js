@@ -23,16 +23,6 @@ const Home = () => {
           marginTop: 10,
         }}>
         <Carousel data={CarouselData} />
-
-        {/* <View
-          style={{
-            width: 363,
-            height: 157,
-            backgroundColor: COLORS.gray,
-            borderRadius: 15,
-            marginLeft: 5,
-          }}
-        /> */}
       </View>
       {/* HOME activity */}
       <View
@@ -47,9 +37,21 @@ const Home = () => {
           alignItems: 'center',
         }}>
         <IconNews handlePress={() => navigation.navigate('News')} />
-        <IconPengaduan handlePress={() => navigation.navigate('Pengaduan')} />
-        <IconUupk handlePress={() => navigation.navigate('Uupk')} />
+        <IconPengaduan handlePress={() => navigation.navigate('Register')} />
+        <IconUupk handlePress={() => navigation.navigate('Login')} />
       </View>
+      <View
+        style={{
+          width: 360,
+          height: 52,
+          backgroundColor: COLORS.primary2,
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          position: 'absolute',
+          top: 665,
+          left: 8,
+        }}
+      />
     </SafeAreaView>
   );
 };

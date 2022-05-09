@@ -3,7 +3,7 @@ import { View, Text, FlatList, Animated, Dimensions, StyleSheet } from 'react-na
 import CarouselItem from './CarouselItem';
 
 const { width, height } = Dimensions.get('window');
-// let flatList;
+
 
 function infiniteScroll(dataList, mySlide) {
   const numberOfData = dataList.length;
@@ -17,7 +17,7 @@ function infiniteScroll(dataList, mySlide) {
       scrollValue = 0;
       scrolled = 0;
     }
-    if (mySlide) {
+    if (mySlide.current) {
       mySlide.current.scrollToOffset({
         animated: true,
         offset: scrollValue,

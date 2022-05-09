@@ -1,31 +1,18 @@
-import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { View, Text, StyleSheet, Image, SafeAreaView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 // assset
-import { assets, COLORS, SHADOWS, SIZES, FONTS } from '../constants';
+import { assets, COLORS, SIZES, FONTS } from '../constants';
 
-import { FocusStatusBar, IconBack, RectButton } from '../components';
-import { FormRegis } from '../components';
-
+import { FocusStatusBar, IconBack, RectButton, FormRegis } from '../components';
 import { setFormRegis } from '../redux';
 
 const Register = () => {
   const RegisterReducer = useSelector((state) => state.registerReducer);
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  // const [formRegis, setFormRegis] = useState({
-  //   fullName: '',
-  //   email: '',
-  //   nomorHp: '',
-  //   password: '',
-  // });
 
   const onChangeRegis = (value, input) => {
-    // setFormRegis({
-    //   ...formRegis,
-    //   [input]: value,
-    // });
     dispatch(setFormRegis(input, value));
   };
 
@@ -64,7 +51,7 @@ const Register = () => {
           alignItems: 'center',
           marginTop: 10,
         }}>
-        <RectButton title="Daftar" handlePress={() => navigation.navigate('News', { sendData })} />
+        <RectButton title="Daftar" handlePress={sendData} />
       </View>
     </SafeAreaView>
   );

@@ -1,4 +1,4 @@
 import store from './store';
-export * from './action';
+import { setFormRegis, setFormLogin } from './action';
 
-export { store };
+export { store, setFormRegis, setFormLogin };

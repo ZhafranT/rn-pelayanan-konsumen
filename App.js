@@ -4,13 +4,8 @@ import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { Provider } from 'react-redux';
 import { useFonts } from 'expo-font';
 import { store } from './redux';
-import Spalsh from './screens/Spalsh';
-import Home from './screens/Home';
-import Register from './screens/Register';
-import Login from './screens/Login';
-import Pengaduan from './screens/Pengaduan';
-import News from './screens/News';
-import Uupk from './screens/Uupk';
+
+import { Home, Login, Register, News, Spalsh, Uupk, Pengaduan } from './screens';
 
 const Stack = createNativeStackNavigator();
 
