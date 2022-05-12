@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Image } from 'react-native';
 
 import { assets } from '../constants';
 
 const Spalsh = ({ navigation }) => {
   useEffect(() => {
     setTimeout(() => {
-      navigation.replace('Home');
+      navigation.replace('Navi');
     }, 3000);
   }, []);
 

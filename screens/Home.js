@@ -3,9 +3,8 @@ import React from 'react';
 
 import { assets, COLORS, SHADOWS, SIZES, FONTS } from '../constants';
 
-import { FocusStatusBar, Icon, IconNews, IconPengaduan, IconUupk } from '../components';
+import { FocusStatusBar, Icon, IconNews, IconPengaduan, IconUupk, Carousel } from '../components';
 import { useNavigation } from '@react-navigation/native';
-import Carousel from '../components/Carousel';
 import { CarouselData } from '../constants';
 
 const Home = () => {
@@ -40,18 +39,6 @@ const Home = () => {
         <IconPengaduan handlePress={() => navigation.navigate('Register')} />
         <IconUupk handlePress={() => navigation.navigate('Login')} />
       </View>
-      <View
-        style={{
-          width: 360,
-          height: 52,
-          backgroundColor: COLORS.primary2,
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          position: 'absolute',
-          top: 665,
-          left: 8,
-        }}
-      />
     </SafeAreaView>
   );
 };
