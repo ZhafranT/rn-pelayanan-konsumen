@@ -1,24 +1,14 @@
 import React from 'react';
-import { Text, TouchableOpacity, Image, View } from 'react-native';
+import { Text, TouchableOpacity, Image, View, StyleSheet } from 'react-native';
 
 import { assets, COLORS, SHADOWS, SIZES, FONTS } from '../constants';
 
-export const RectButton = ({ title, handlePress }) => {
+export const RectButton = ({ title, handlePress, backgroundColor }) => {
   return (
-    <TouchableOpacity
-      style={{
-        width: 235,
-        backgroundColor: COLORS.primary2,
-        borderRadius: 25,
-        paddingVertical: 13,
-        alignItems: 'center',
-        justifyContent: 'center',
-        ...SHADOWS.light,
-      }}
-      onPress={handlePress}>
+    <TouchableOpacity style={[stylesRectButton.appButtonContainer, backgroundColor && { backgroundColor }]} onPress={handlePress}>
       <Text
         style={{
-          fontSize: SIZES.small,
+          fontSize: SIZES.medium,
           fontWeight: '500',
           color: COLORS.white,
           textTransform: 'uppercase',
@@ -29,6 +19,17 @@ export const RectButton = ({ title, handlePress }) => {
     </TouchableOpacity>
   );
 };
+
+const stylesRectButton = StyleSheet.create({
+  appButtonContainer: {
+    width: 235,
+    borderRadius: 25,
+    paddingVertical: 13,
+    alignItems: 'center',
+    justifyContent: 'center',
+    ...SHADOWS.light,
+  },
+});
 
 export const RegisHere = ({ handlePress }) => {
   return (

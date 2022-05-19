@@ -1,18 +1,10 @@
-import React from "react";
-import { StyleSheet, Text, View, Image, SafeAreaView } from "react-native";
+import React from 'react';
+import { StyleSheet, Text, View, Image, SafeAreaView } from 'react-native';
 
-import { assets, COLORS, SHADOWS, SIZES, FONTS } from "../constants";
+import { assets, COLORS, SHADOWS, SIZES, FONTS, CarouselData } from '../constants';
 
-import {
-  FocusStatusBar,
-  Icon,
-  IconNews,
-  IconPengaduan,
-  IconUupk,
-  Carousel,
-} from "../components";
-import { useNavigation } from "@react-navigation/native";
-import { CarouselData } from "../constants";
+import { FocusStatusBar, Icon, IconNews, IconPengaduan, IconUupk, Carousel } from '../components';
+import { useNavigation } from '@react-navigation/native';
 
 const Home = () => {
   const navigation = useNavigation();
@@ -27,8 +19,7 @@ const Home = () => {
       <View
         style={{
           marginTop: 10,
-        }}
-      >
+        }}>
         <Carousel data={CarouselData} />
       </View>
       {/* HOME activity */}
@@ -39,14 +30,13 @@ const Home = () => {
       />
       <View
         style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
-        <IconNews handlePress={() => navigation.navigate("News")} />
-        <IconPengaduan handlePress={() => navigation.navigate("Register")} />
-        <IconUupk handlePress={() => navigation.navigate("Login")} />
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}>
+        <IconNews handlePress={() => navigation.navigate('News')} />
+        <IconPengaduan handlePress={() => navigation.navigate('Pengaduan')} />
+        <IconUupk handlePress={() => navigation.navigate('Uupk')} />
       </View>
     </SafeAreaView>
   );
@@ -62,9 +52,9 @@ const styles = StyleSheet.create({
   },
 
   itemHeader: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     marginTop: 10,
   },
   logo: {
@@ -73,8 +63,8 @@ const styles = StyleSheet.create({
   },
   buttonHeader: {
     paddingTop: 10,
-    flexDirection: "row",
-    alignSelf: "flex-end",
+    flexDirection: 'row',
+    alignSelf: 'flex-end',
     paddingRight: 30,
   },
 });

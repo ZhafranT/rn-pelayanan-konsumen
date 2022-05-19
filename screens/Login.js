@@ -47,7 +47,7 @@ const Login = () => {
           alignItems: 'center',
           marginTop: 10,
         }}>
-        <RectButton title="Login" handlePress={sendData} />
+        <RectButton title="Login" handlePress={sendData} backgroundColor={COLORS.primary2} />
         <RegisHere handlePress={() => navigation.navigate('Register')} />
       </View>
     </SafeAreaView>

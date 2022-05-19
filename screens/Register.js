@@ -51,7 +51,7 @@ const Register = () => {
           alignItems: 'center',
           marginTop: 10,
         }}>
-        <RectButton title="Daftar" handlePress={sendData} />
+        <RectButton title="Daftar" handlePress={sendData} backgroundColor={COLORS.primary2} />
       </View>
     </SafeAreaView>
   );

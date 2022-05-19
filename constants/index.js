@@ -1,5 +1,5 @@
 import assets from './assets';
-import { CarouselData } from './dummy';
+import { CarouselData, UupkData } from './dummy';
 import { COLORS, SHADOWS, SIZES, FONTS } from './theme';
 
-export { assets, CarouselData, COLORS, SHADOWS, SIZES, FONTS };
+export { assets, CarouselData, COLORS, SHADOWS, SIZES, FONTS, UupkData };

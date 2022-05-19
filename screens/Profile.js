@@ -1,14 +1,45 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React from 'react';
+import { StyleSheet, Text, View, Image } from 'react-native';
+import { CardProfile, RectButton } from '../components';
+import { assets, COLORS, SHADOWS, SIZES, FONTS } from '../constants';
+import { useNavigation } from '@react-navigation/native';
 
 const Profile = () => {
+  const navigation = useNavigation();
+
   return (
     <View>
-      <Text>Profile</Text>
+      <Text
+        style={{
+          textAlign: 'center',
+          marginBottom: 20,
+          top: 40,
+          fontFamily: FONTS.medium,
+          fontSize: SIZES.extraLarge,
+        }}>
+        Profil Saya
+      </Text>
+      <View
+        style={{
+          height: 50,
+        }}
+      />
+      <View>
+        <CardProfile username="Zhafran Tosa" numbersellphone="081311439737" />
+      </View>
+      <View
+        style={{
+          justifyContent: 'center',
+          alignItems: 'center',
+          top: 220,
+          marginTop: 10,
+        }}>
+        <RectButton title="Logout" backgroundColor={COLORS.secondary2} handlePress={() => navigation.navigate('Spalsh')} />
+      </View>
     </View>
-  )
-}
+  );
+};
 
-export default Profile
+export default Profile;
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({});
