@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, TouchableOpacity, Image, View, StyleSheet } from 'react-native';
-
+import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import { assets, COLORS, SHADOWS, SIZES, FONTS } from '../constants';
 
 export const RectButton = ({ title, handlePress, backgroundColor }) => {
@@ -213,3 +213,4 @@ export const IconPengaduan = ({ handlePress }) => {
     </View>
   );
 };
+
