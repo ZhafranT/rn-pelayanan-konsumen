@@ -44,7 +44,7 @@ const App = () => {
   return (
     <Provider store={store}>
       <NavigationContainer theme={theme}>
-        <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="Pengaduan">
+        <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="Spalsh">
           <Stack.Screen name="Spalsh" component={Spalsh} />
           <Stack.Screen name="Navi" component={Navi} />
           <Stack.Screen name="Register" component={Register} />

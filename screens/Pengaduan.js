@@ -84,8 +84,8 @@ const Pengaduan = () => {
             style={{
               color: '#000',
             }}>
-            <Picker.Item label="Male" value="Male" style={styles.gender} />
-            <Picker.Item label="Lady" value="Lady" style={styles.gender} />
+            <Picker.Item label="Laki - Laki" value="laki" style={styles.gender} />
+            <Picker.Item label="Perempuan" value="Perempuan" style={styles.gender} />
           </Picker>
         </View>
         <Text
@@ -223,6 +223,7 @@ const Pengaduan = () => {
           style={{
             fontSize: SIZES.medium,
             fontFamily: FONTS.regular,
+            marginBottom: 10,
           }}>
           Bukti - Bukti
         </Text>
