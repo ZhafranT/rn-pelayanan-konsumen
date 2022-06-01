@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { View, Text, StyleSheet, Image, SafeAreaView, ScrollView, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -13,6 +13,24 @@ const Register = () => {
   const RegisterReducer = useSelector((state) => state.registerReducer);
   const dispatch = useDispatch();
   const navigation = useNavigation();
+  const [errmmsg, setErrmsg] = useState(null)
+  const [mainerrmmsg, setmainerrmmsg] = useState(null)
+
+  useEffect(() => {
+    // getdata()
+  },[errmmsg,mainerrmmsg])
+
+  const getdata = () => {
+    if (errmmsg != null || errmmsg != undefined) {
+      const x = JSON.parse(errmmsg)
+      let newerr = []
+      for (let index = 0; index < Object.keys(x).length; index++) {
+        newerr.push({errname: Object.keys(x)[index], errdesc: Object.values(x)[index][0]})
+      }
+      // setmainerrmmsg(newerr)
+      console.log(newerr);
+    }
+  }
 
   const onChangeRegis = (value, input) => {
     dispatch(setFormRegis(input, value));
@@ -31,21 +49,48 @@ const Register = () => {
       noTelp: dataRegister.noTelp,
       password: dataRegister.password,
     };
-
-    console.log(body);
-
-    const getapi = async () => {
-      const url = 'https://pelayanan-konsumen.herokuapp.com/api/register';
-      const options = {
-        method: 'post',
-        url,
-        body,
-      };
-      const res = await axios(options);
-      console.log(res);
+    const url = 'https://pelayanan-konsumen.herokuapp.com/api/register';
+    const testfetch = async body => {
+      const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          "alamat": "",
+          "email": "asdas@gmail.com",
+          "gender": "",
+          "namaLengkap": "asdasd",
+          "nik": "1234567891234567",
+          "noTelp": "012311222312",
+          "password": "asdasdasd"
+        }
+        )
     };
 
-    getapi();
+    fetch(url, requestOptions)
+        .then(response => {
+          const statusCode = response.status;
+          const data = response.json();
+          return Promise.all([statusCode, data]);
+        })
+        .then(([res, data]) => {
+          // handle success
+          console.log(res, data);
+          if (res == 200) {
+            // success
+          } else {
+            // gagal
+            setErrmsg(data)
+          }
+        })
+        .catch(err => {
+          // handle error
+          // setErrmsg()
+          console.log(err)
+        })
+    
+    }
+
+    testfetch(body)
   };
 
   return (
