@@ -2,9 +2,12 @@ import { combineReducers } from 'redux';
 
 const initialStateRegister = {
   formRegis: {
-    fullName: '',
+    nik: '',
+    namaLengkap: '',
     email: '',
-    nomorHp: '',
+    alamat: '',
+    noTelp: '',
+    gender: '',
     password: '',
   },
 };

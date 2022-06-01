@@ -25,7 +25,8 @@ const Navi = () => {
     <Tab.Navigator screenOptions={{ headerShown: false, showLabel: false }} tabBar={(props) => <BottomNavigator {...props} />}>
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="Status" component={Status} />
-      <Tab.Screen name="Profile" component={Profile} />
+      <Tab.Screen name="Login" component={Login} />
+      {/* <Tab.Screen name="Profile" component={Profile} /> */}
     </Tab.Navigator>
   );
 };
@@ -48,7 +49,7 @@ const App = () => {
           <Stack.Screen name="Spalsh" component={Spalsh} />
           <Stack.Screen name="Navi" component={Navi} />
           <Stack.Screen name="Register" component={Register} />
-          <Stack.Screen name="Login" component={Login} />
+          {/* <Stack.Screen name="Login" component={Login} /> */}
           <Stack.Screen name="Pengaduan" component={Pengaduan} />
           <Stack.Screen name="News" component={News} />
           <Stack.Screen name="Uupk" component={Uupk} />

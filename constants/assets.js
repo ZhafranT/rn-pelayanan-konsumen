@@ -1,5 +1,7 @@
 import logo from '../assets/images/logo-kemendag.png';
 import splash from '../assets/images/splash-screeen.png';
+import menuauth from '../assets/images/menuauth.jpg';
+import profilePic from '../assets/images/fotoprofile.jpg';
 
 import left from '../assets/icons/left.png';
 import search from '../assets/icons/search.png';
@@ -18,8 +20,6 @@ import profile from '../assets/icons/profile.png';
 import homeWhite from '../assets/icons/home-white.png';
 import peopleWhite from '../assets/icons/people-white.png';
 import reportWhite from '../assets/icons/report-white.png';
-
-import profilePic from '../assets/images/fotoprofile.jpg';
 
 // asset berita foto
 import foto1 from '../assets/pic-news/foto-1.jpg';
@@ -51,4 +51,5 @@ export default {
   peopleWhite,
   reportWhite,
   profilePic,
+  menuauth,
 };

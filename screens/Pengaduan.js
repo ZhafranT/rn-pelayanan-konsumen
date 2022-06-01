@@ -12,27 +12,6 @@ const Pengaduan = () => {
   const [pickerGender, setPickerGender] = useState('Male');
   const [pickerJenisProduk, setPickerJenisProduk] = useState('Pilih Kategori');
 
-  const [date, setDate] = useState(new Date());
-  const [mode, setMode] = useState('date');
-  const [show, setShow] = useState(false);
-  const [textDate, setTextDate] = useState('mm/dd/yyyy');
-
-  const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
-    setShow(Platform.OS === 'ios');
-    setDate(currentDate);
-
-    let tempDate = new Date(currentDate);
-    let fDate = tempDate.getMonth() + 1 + '/' + tempDate.getDate() + '/' + tempDate.getFullYear();
-
-    setTextDate(fDate);
-  };
-
-  const showMode = (currentMode) => {
-    setShow(true);
-    setMode(currentMode);
-  };
-
   return (
     <SafeAreaView
       style={{
@@ -95,32 +74,6 @@ const Pengaduan = () => {
           }}>
           Tanggal Lahir
         </Text>
-        <View
-          style={{
-            width: 200,
-            height: 45,
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            borderWidth: 1,
-            borderColor: COLORS.gray,
-            borderRadius: 10,
-            marginLeft: 0,
-            margin: 10,
-            padding: 10,
-          }}>
-          <Text
-            style={{
-              fontSize: SIZES.medium,
-              fontFamily: FONTS.regular,
-            }}>
-            {textDate}
-          </Text>
-          <TouchableOpacity onPress={() => showMode('date')}>
-            <Fontisto name="date" size={24} color="black" />
-          </TouchableOpacity>
-          {show && <DateTimePicker value={date} mode={mode} display="default" onChange={onChange} />}
-        </View>
 
         <FormPengaduan placeholder="NIK" keyboardType="numeric" />
         <FormPengaduan placeholder="Telphone / hp" keyboardType="numeric" />
