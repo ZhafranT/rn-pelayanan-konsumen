@@ -7,5 +7,7 @@ import Uupk from './Uupk';
 import Pengaduan from './Pengaduan';
 import Status from './Status';
 import Profile from './Profile';
+import Help from './Help';
+import Notif from './Notif';
 
-export { Home, Login, Register, News, Spalsh, Uupk, Pengaduan, Status, Profile };
+export { Home, Login, Register, News, Spalsh, Uupk, Pengaduan, Status, Profile, Help, Notif };

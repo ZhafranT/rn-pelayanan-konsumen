@@ -9,7 +9,7 @@ const TabItem = ({ onPress, onLongPress, isFocused, label }) => {
     if (label === 'Status') return isFocused ? <Image source={assets.reportWhite} style={styles.status} /> : <Image source={assets.status} style={styles.status} />;
     if (label === 'Profile') return isFocused ? <Image source={assets.peopleWhite} /> : <Image source={assets.profile} />;
 
-    return null;
+    return isFocused ? <Image source={assets.peopleWhite} /> : <Image source={assets.profile} />;
   };
 
   return (

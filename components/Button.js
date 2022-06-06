@@ -65,18 +65,7 @@ export const IconBack = ({ handlePress }) => {
   );
 };
 
-export const Icon = () => {
-  return (
-    <View
-      style={{
-        flexDirection: 'row',
-        marginRight: 10,
-      }}>
-      <IconNotif />
-      <IconHelp />
-    </View>
-  );
-};
+
 
 export const IconNotif = ({ handlePress }) => {
   return (
@@ -86,6 +75,7 @@ export const IconNotif = ({ handlePress }) => {
         style={{
           width: 30,
           height: 30,
+          right: 15,
         }}
       />
     </TouchableOpacity>
@@ -100,7 +90,7 @@ export const IconHelp = ({ handlePress }) => {
         style={{
           width: 30,
           height: 30,
-          marginLeft: 15,
+          left: 5,
         }}
       />
     </TouchableOpacity>
@@ -213,4 +203,3 @@ export const IconPengaduan = ({ handlePress }) => {
     </View>
   );
 };
-

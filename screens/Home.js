@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Image, SafeAreaView } from 'react-native';
 
 import { assets, COLORS, SHADOWS, SIZES, FONTS, CarouselData } from '../constants';
 
-import { FocusStatusBar, Icon, IconNews, IconPengaduan, IconUupk, Carousel } from '../components';
+import { FocusStatusBar, IconNews, IconPengaduan, IconUupk, Carousel, IconNotif, IconHelp } from '../components';
 import { useNavigation } from '@react-navigation/native';
 
 const Home = () => {
@@ -13,7 +13,16 @@ const Home = () => {
       <FocusStatusBar background={COLORS.gray} />
       <View style={styles.itemHeader}>
         <Image source={assets.logo} style={styles.logo} />
-        <Icon />
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginRight: 15,
+          }}>
+          <IconNotif handlePress={() => navigation.navigate('Notif')} />
+          <IconHelp handlePress={() => navigation.navigate('Help')} />
+        </View>
       </View>
       {/* COROSEL */}
       <View

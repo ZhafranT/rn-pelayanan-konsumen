@@ -7,10 +7,10 @@ import { assets, COLORS, SHADOWS, SIZES, FONTS } from '../constants';
 import { FocusStatusBar, IconBack, RectButton, RegisHere, FormLogin } from '../components';
 import { setFormLogin } from '../redux';
 
-const Login = () => {
+const Login = ({ navigation }) => {
   const LoginReducer = useSelector((state) => state.loginReducer);
   const dispatch = useDispatch();
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
 
   const onChangeLogin = (value, input) => {
     dispatch(setFormLogin(input, value));
@@ -50,6 +50,11 @@ const Login = () => {
         <RectButton title="Login" handlePress={sendData} backgroundColor={COLORS.primary2} />
         <RegisHere handlePress={() => navigation.navigate('Register')} />
       </View>
+      <View
+        style={{
+          height: 100,
+        }}
+      />
     </SafeAreaView>
   );
 };
@@ -58,6 +63,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginLeft: 10,
+    // position: '',
   },
   imageLogo: {
     padding: 65,

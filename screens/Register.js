@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { View, Text, StyleSheet, Image, SafeAreaView, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image, SafeAreaView, ScrollView, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 // assset
@@ -13,24 +13,25 @@ const Register = () => {
   const RegisterReducer = useSelector((state) => state.registerReducer);
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const [errmmsg, setErrmsg] = useState(null)
-  const [mainerrmmsg, setmainerrmmsg] = useState(null)
+  const [errmmsg, setErrmsg] = useState(null);
+  const [success, setsuccess] = useState(null);
+  const [mainerrmmsg, setmainerrmmsg] = useState(null);
 
   useEffect(() => {
-    // getdata()
-  },[errmmsg,mainerrmmsg])
+    getdata();
+  }, [errmmsg, mainerrmmsg]);
 
   const getdata = () => {
     if (errmmsg != null || errmmsg != undefined) {
-      const x = JSON.parse(errmmsg)
-      let newerr = []
+      const x = JSON.parse(errmmsg);
+      let newerr = [];
       for (let index = 0; index < Object.keys(x).length; index++) {
-        newerr.push({errname: Object.keys(x)[index], errdesc: Object.values(x)[index][0]})
+        newerr.push({ errname: Object.keys(x)[index], errdesc: Object.values(x)[index][0] });
       }
-      // setmainerrmmsg(newerr)
+      // setmainerrmmsg(newerr);
       console.log(newerr);
     }
-  }
+  };
 
   const onChangeRegis = (value, input) => {
     dispatch(setFormRegis(input, value));
@@ -38,7 +39,6 @@ const Register = () => {
 
   const sendData = () => {
     const dataRegister = RegisterReducer.formRegis;
-    console.log('data masuk : ', dataRegister);
 
     const body = {
       alamat: dataRegister.alamat,
@@ -49,48 +49,42 @@ const Register = () => {
       noTelp: dataRegister.noTelp,
       password: dataRegister.password,
     };
-    const url = 'https://pelayanan-konsumen.herokuapp.com/api/register';
-    const testfetch = async body => {
+
+    // const url = 'https://pelayanan-konsumen.herokuapp.com/api/register';
+    const url = 'https://7086-139-0-234-230.ap.ngrok.io/api/register';
+    const fetchRegister = async (body) => {
       const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          "alamat": "",
-          "email": "asdas@gmail.com",
-          "gender": "",
-          "namaLengkap": "asdasd",
-          "nik": "1234567891234567",
-          "noTelp": "012311222312",
-          "password": "asdasdasd"
-        }
-        )
-    };
+        body: JSON.stringify(body),
+      };
 
-    fetch(url, requestOptions)
-        .then(response => {
+      fetch(url, requestOptions)
+        .then((response) => {
           const statusCode = response.status;
           const data = response.json();
           return Promise.all([statusCode, data]);
         })
         .then(([res, data]) => {
           // handle success
-          console.log(res, data);
-          if (res == 200) {
+          // console.log(res, data);
+          if (res == 400) {
             // success
+            setErrmsg(data);
+
+            // navigation.navigate('Login', setsuccess('register successfull'));
           } else {
             // gagal
-            setErrmsg(data)
+            setsuccess('Register successfull');
           }
         })
-        .catch(err => {
+        .catch((err) => {
           // handle error
           // setErrmsg()
-          console.log(err)
-        })
-    
-    }
-
-    testfetch(body)
+          console.log(err);
+        });
+    };
+    fetchRegister(body);
   };
 
   return (
@@ -132,13 +126,18 @@ const Register = () => {
             style={{
               color: '#000',
             }}>
+            <Picker.Item label="Pilih Gender" style={styles.gender} />
             <Picker.Item label="pria" value="pria" style={styles.gender} />
             <Picker.Item label="wanita" value="wanita" style={styles.gender} />
           </Picker>
         </View>
         <FormRegis placeholder="Password" secureTextEntry={true} value={RegisterReducer.formRegis.password} onChangeText={(value) => onChangeRegis(value, 'password')} />
       </ScrollView>
+      {/* {!!sendData == null ? <Text>{created}</Text> : } */}
 
+      <Text style={styles.text}>{success}</Text>
+      <Text>{errmmsg}</Text>
+      <Text>{errmmsg}</Text>
       <View
         style={{
           justifyContent: 'center',
@@ -146,6 +145,7 @@ const Register = () => {
           marginBottom: 10,
         }}>
         <RectButton title="Daftar" handlePress={sendData} backgroundColor={COLORS.primary2} />
+        {/* () => navigation.navigate('Login', { sendData }) */}
       </View>
     </SafeAreaView>
   );
@@ -163,6 +163,11 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     marginTop: 15,
+  },
+  text: {
+    fontSize: SIZES.medium,
+    fontFamily: FONTS.regular,
+    textAlign: 'center',
   },
 });
 

@@ -1,8 +1,9 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Platform } from 'react-native';
 
 // asset
 import { COLORS, SHADOWS, SIZES, FONTS } from '../../constants';
+
 import TabItem from './TabItem';
 
 const BottomNavigator = ({ state, descriptors, navigation }) => {
@@ -45,10 +46,10 @@ export default BottomNavigator;
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
-    bottom: 25,
+    bottom: 10,
     left: 10,
     right: 10,
-    elevation: 0,
+    elevation: 10,
     backgroundColor: COLORS.primary2,
     borderRadius: 15,
     height: 65,

@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import { useFonts } from 'expo-font';
 import { store } from './redux';
 
-import { Home, Login, Register, News, Spalsh, Uupk, Pengaduan, Status, Profile } from './screens';
+import { Home, Login, Register, News, Spalsh, Uupk, Pengaduan, Status, Profile, Help, Notif } from './screens';
 import { BottomNavigator } from './components';
 
 const Stack = createNativeStackNavigator();
@@ -53,6 +53,8 @@ const App = () => {
           <Stack.Screen name="Pengaduan" component={Pengaduan} />
           <Stack.Screen name="News" component={News} />
           <Stack.Screen name="Uupk" component={Uupk} />
+          <Stack.Screen name="Help" component={Help} />
+          <Stack.Screen name="Notif" component={Notif} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

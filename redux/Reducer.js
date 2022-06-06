@@ -46,9 +46,56 @@ const loginReducer = (state = initialStateLogin, action) => {
   return state;
 };
 
+const initialStatePengaduan = {
+  formPengaduan: {
+    nama: '',
+    jenisKelamin: '',
+    tanggalLahir:'',
+    noIdentitas: '',
+    telepon: '',
+    email: '',
+    alamat: '',
+    provinsi: '',
+    kotaKabupaten: '',
+    kodePos: '',
+    alamatPelakuUsah: '',
+    teleponPelakuUsaha: '',
+    provinsiPelakuUsaha: '',
+    kotaKabupatenPelakuUsaha: '',
+    kodePosPelakuUsaha: '',
+    jenisProduk:'',
+    detailProduk:'',
+    merkDagang:'',
+    type:'',
+    jenisPengaduan:'',
+    waktuKejadianDitemukan:'',
+    tempatLokasiKejadian:'',
+    bukti: '',
+    saksi: '',
+    kerugian: '',
+    inputKerugian: '',
+    jenisTuntutan:'',
+    kronologiPengaduan:'',
+  },
+};
+
+const pengaduanReducer = (state = initialStatePengaduan, action) => {
+  if (action.type === 'SET_FORM_PENGADUAN') {
+    return {
+      ...state,
+      formPengaduan: {
+        ...state.formPengaduan,
+        [action.inputType]: action.inputValue,
+      },
+    };
+  }
+  return state;
+};
+
 const reducers = combineReducers({
   loginReducer,
   registerReducer,
+  pengaduanReducer,
 });
 
 export default reducers;
