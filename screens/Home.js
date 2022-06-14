@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Image, SafeAreaView } from 'react-native';
 
 import { assets, COLORS, SHADOWS, SIZES, FONTS, CarouselData } from '../constants';
@@ -6,8 +6,10 @@ import { assets, COLORS, SHADOWS, SIZES, FONTS, CarouselData } from '../constant
 import { FocusStatusBar, IconNews, IconPengaduan, IconUupk, Carousel, IconNotif, IconHelp } from '../components';
 import { useNavigation } from '@react-navigation/native';
 
+
 const Home = () => {
   const navigation = useNavigation();
+
   return (
     <SafeAreaView style={styles.container}>
       <FocusStatusBar background={COLORS.gray} />

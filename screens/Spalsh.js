@@ -1,14 +1,35 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Image } from 'react-native';
 
 import { assets } from '../constants';
 
+import { checklogin } from '../utils';
+
 const Spalsh = ({ navigation }) => {
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     navigation.replace('Navi');
+  //   }, 3000);
+  // }, []);
+
+  // const [islogin, setIslogin] = useState(null);
+
   useEffect(() => {
-    setTimeout(() => {
-      navigation.replace('Navi');
-    }, 3000);
+    loginmethod();
   }, []);
+
+  const loginmethod = async () => {
+    console.log('ASpalshpp | checklogin', await checklogin());
+    if (await checklogin()) {
+      setTimeout(() => {
+        navigation.replace('Navilogin');
+      }, 1000);
+    } else {
+      setTimeout(() => {
+        navigation.replace('Navinon');
+      }, 1000);
+    }
+  };
 
   return (
     <View

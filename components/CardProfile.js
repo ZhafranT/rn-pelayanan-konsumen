@@ -6,7 +6,7 @@ const CardProfile = ({ username, numbersellphone }) => {
   return (
     <View
       style={{
-        width: 325,
+        width: 355,
         height: 180,
         marginTop: 30,
         backgroundColor: COLORS.primary3,

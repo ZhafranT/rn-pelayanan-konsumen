@@ -2,10 +2,18 @@ import React from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
 import { CardProfile, RectButton } from '../components';
 import { assets, COLORS, SHADOWS, SIZES, FONTS } from '../constants';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, CommonActions } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Profile = () => {
   const navigation = useNavigation();
+
+  const logoutfunc = async () => {
+    await AsyncStorage.clear();
+    setTimeout(() => {
+      navigation.navigate('Spalsh');
+    }, 0);
+  };
 
   return (
     <View>
@@ -34,7 +42,7 @@ const Profile = () => {
           top: 220,
           marginTop: 10,
         }}>
-        <RectButton title="Logout" backgroundColor={COLORS.secondary2} handlePress={() => navigation.navigate('Spalsh')} />
+        <RectButton title="Logout" backgroundColor={COLORS.secondary2} handlePress={() => logoutfunc()} />
       </View>
     </View>
   );

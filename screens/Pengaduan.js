@@ -81,7 +81,7 @@ const Pengaduan = () => {
     let fDate = tempDate.getMonth() + 1 + '/' + tempDate.getDate() + '/' + tempDate.getFullYear();
 
     setTextDate(fDate);
-    dispatch(setFormPengaduan(formtype, tempDate));
+    dispatch(setFormPengaduan(tempDate, fDate));
   };
 
   const showMode = (currentMode) => {
@@ -143,7 +143,7 @@ const Pengaduan = () => {
           <TouchableOpacity onPress={() => showMode('date')}>
             <Fontisto name="date" size={24} color="black" />
           </TouchableOpacity>
-          {show && <DateTimePicker value={date} mode={mode} display="default" onChange={onChange()} />}
+          {show && <DateTimePicker value={date} mode={mode} display="default" onChange={onChange} />}
         </View>
 
         <FormPengaduan placeholder="NIK" keyboardType="numeric" value={PengaduanReducer.formPengaduan.noIdentitas} onChangeText={(value) => onChangePengaduan(value, 'noIdentitas')} />
@@ -263,7 +263,7 @@ const Pengaduan = () => {
           <TouchableOpacity onPress={() => showMode('date')}>
             <Fontisto name="date" size={24} color="black" />
           </TouchableOpacity>
-          {show && <DateTimePicker value={date} mode={mode} display="default" onChange={onChange()} />}
+          {show && <DateTimePicker value={date} mode={mode} display="default" onChange={onChange} />}
         </View>
         <FormPengaduan placeholder="Lokasi Kejadian" value={PengaduanReducer.formPengaduan.tempatLokasiKejadian} onChangeText={(value) => onChangePengaduan(value, 'tempatLokasiKejadian')} />
 
@@ -328,13 +328,20 @@ const Pengaduan = () => {
         <FormPengaduan placeholder="KRONOLOGIS PENGADUAN" height={100} value={PengaduanReducer.formPengaduan.kronologiPengaduan} onChangeText={(value) => onChangePengaduan(value, 'kronologiPengaduan')} />
         <View
           style={{
-            justifyContent: 'center',
-            alignItems: 'center',
-            marginBottom: 10,
-          }}>
-          <RectButton title="Submit" handlePress={sendData} backgroundColor={COLORS.primary2} />
-        </View>
+            height: 30,
+          }}
+        />
       </ScrollView>
+
+      <View
+        style={{
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginBottom: 10,
+          marginTop: 10,
+        }}>
+        <RectButton title="Submit" handlePress={sendData} backgroundColor={COLORS.primary2} />
+      </View>
     </SafeAreaView>
   );
 };

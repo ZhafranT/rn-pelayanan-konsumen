@@ -1,28 +1,131 @@
+import { useEffect, useState } from 'react';
 import { View, Text, SafeAreaView, StyleSheet, Image } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
 // assset
 import { assets, COLORS, SHADOWS, SIZES, FONTS } from '../constants';
-
+import Toast from 'react-native-toast-message';
 import { FocusStatusBar, IconBack, RectButton, RegisHere, FormLogin } from '../components';
 import { setFormLogin } from '../redux';
 
 const Login = ({ navigation }) => {
   const LoginReducer = useSelector((state) => state.loginReducer);
   const dispatch = useDispatch();
-  // const navigation = useNavigation();
+
+  const [errmmsg, setErrmsg] = useState(null);
+  const [mainerrmmsg, setmainerrmmsg] = useState(null);
+
+  useEffect(() => {
+    getdata();
+  }, [errmmsg, mainerrmmsg]);
+
+  const getdata = () => {
+    if (errmmsg != null || errmmsg != undefined) {
+      console.log('errmmsg', errmmsg);
+      // const x = JSON.parse(errmmsg);
+      // let newerr = [];
+      // for (let index = 0; index < Object.keys(errmmsg).length; index++) {
+      //   // newerr.push({ errname: Object.keys(x)[index], errdesc: Object.values(x)[index][0] });
+      //   console.log(newerr);
+      // }
+      setmainerrmmsg(errmmsg);
+      // console.log(newerr);
+    }
+  };
 
   const onChangeLogin = (value, input) => {
     dispatch(setFormLogin(input, value));
   };
 
   const sendData = () => {
-    console.log('data login : ', LoginReducer.formLogin);
+    const dataLogin = LoginReducer.formLogin;
+
+    const body = {
+      email: dataLogin.email,
+      password: dataLogin.password,
+    };
+
+    // console.log('data login : ', body);
+
+    // const url = 'https://pelayanan-konsumen.herokuapp.com/api/login';
+    const url = 'https://7acc-139-0-234-230.ap.ngrok.io/api/login';
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: body ? JSON.stringify(body) : {},
+    };
+    fetch(url, requestOptions)
+      .then((response) => {
+        const statusCode = response.status;
+        const data = response.json();
+        return Promise.all([statusCode, data]);
+      })
+      .then(([res, data]) => {
+        if (res == 200) {
+          console.log('Login | 200', data);
+          AsyncStorage.setItem('ACCESS_TOKEN', JSON.stringify(data));
+          AsyncStorage.setItem('IS_LOGIN', 'true');
+
+          Toast.show({
+            type: 'success',
+            text1: 'Login successfull',
+          });
+
+          setTimeout(() => {
+            navigation.navigate('Spalsh');
+          }, 2000);
+        } else if (res == 400) {
+          // setErrmsg(data);
+          console.log('Login | 400', data);
+        } else {
+          console.log('Login | 500', data);
+        }
+      })
+      .catch((err) => {
+        // handle error
+        console.log('Login | err', err);
+      });
+    // const userLogin = () => {
+    //   this.setState({
+    //     is_loading: true,
+    //   });
+    //   axios
+    //     .post(`${url}/api/login`, {
+    //       headers: { 'Content-Type': 'application/json' },
+    //       body: JSON.stringify(body),
+    //     })
+    //     .then((response) => {
+    //       if (response == true) {
+    //         this.setState({
+    //           is_loading: false,
+    //         });
+    //         const data = response.json();
+    //         AsyncStorage.setItem(ACCESS_TOKEN, data);
+    //         navigate('Home');
+    //       } else {
+    //         this.setState({
+    //           is_loading: false,
+    //         });
+    //         Toast.show({
+    //           text: response.data.message,
+    //           position: 'bottom',
+    //           buttonText: 'OK',
+    //           duration: 4000,
+    //         });
+    //       }
+    //     })
+    //     .catch(function (error) {
+    //       console.log(error);
+    //     });
+    // };
+    // userLogin(body);
   };
 
   return (
     <SafeAreaView style={styles.container}>
       <FocusStatusBar barStyle="light-content" background={COLORS.gray} />
+      <Toast />
       <IconBack handlePress={() => navigation.navigate('Home')} />
       <Image source={assets.logo} style={styles.imageLogo} />
       <Text
@@ -47,9 +150,20 @@ const Login = ({ navigation }) => {
           alignItems: 'center',
           marginTop: 10,
         }}>
+        <Text>{errmmsg}</Text>
         <RectButton title="Login" handlePress={sendData} backgroundColor={COLORS.primary2} />
         <RegisHere handlePress={() => navigation.navigate('Register')} />
       </View>
+      {mainerrmmsg != null &&
+        Object.keys(mainerrmmsg).map((i, x) => (
+          <View>
+            <Text>{Object.keys(mainerrmmsg)[x]}</Text>
+            {Object.values(mainerrmmsg)[x].map((r) => (
+              <Text>{r}</Text>
+            ))}
+          </View>
+        ))}
+
       <View
         style={{
           height: 100,

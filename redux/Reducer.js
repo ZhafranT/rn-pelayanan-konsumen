@@ -30,7 +30,7 @@ const initialStateLogin = {
     email: '',
     password: '',
   },
-  isLogin: true,
+  isLogin: false,
 };
 
 const loginReducer = (state = initialStateLogin, action) => {
@@ -50,7 +50,7 @@ const initialStatePengaduan = {
   formPengaduan: {
     nama: '',
     jenisKelamin: '',
-    tanggalLahir:'',
+    tanggalLahir: '',
     noIdentitas: '',
     telepon: '',
     email: '',
@@ -63,19 +63,19 @@ const initialStatePengaduan = {
     provinsiPelakuUsaha: '',
     kotaKabupatenPelakuUsaha: '',
     kodePosPelakuUsaha: '',
-    jenisProduk:'',
-    detailProduk:'',
-    merkDagang:'',
-    type:'',
-    jenisPengaduan:'',
-    waktuKejadianDitemukan:'',
-    tempatLokasiKejadian:'',
+    jenisProduk: '',
+    detailProduk: '',
+    merkDagang: '',
+    type: '',
+    jenisPengaduan: '',
+    waktuKejadianDitemukan: '',
+    tempatLokasiKejadian: '',
     bukti: '',
     saksi: '',
     kerugian: '',
     inputKerugian: '',
-    jenisTuntutan:'',
-    kronologiPengaduan:'',
+    jenisTuntutan: '',
+    kronologiPengaduan: '',
   },
 };
 
