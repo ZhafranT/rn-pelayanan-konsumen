@@ -9,3 +9,14 @@ export const checklogin = async () => {
     return false;
   }
 };
+
+export const checkobjectorno = (value) => {
+  if (value != null || value != undefined) {
+    console.log('checkobjectorno | value',value);
+    if (typeof value === 'string') {
+      return JSON.parse(value)
+    } else {
+      return value
+    }
+  }
+};
