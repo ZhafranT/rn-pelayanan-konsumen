@@ -43,7 +43,9 @@ const Register = () => {
     if (message == 200) {
       // handle 200
       setisLoading(false)
-      navigation.navigate('Home')
+      setTimeout(() => {
+        navigation.navigate('Login');
+      }, 2000);
     } else if (message == 400) {
       // handle 400
       setisLoading(false)
