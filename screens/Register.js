@@ -19,7 +19,6 @@ const Register = () => {
   const [isLoading, setisLoading] = useState(false);
 
   useEffect(() => {
-    // getdata();
   }, [mainerrmmsg,isLoading]);
 
   const onChangeRegis = (value, input) => {
