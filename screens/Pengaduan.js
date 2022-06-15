@@ -81,7 +81,8 @@ const Pengaduan = () => {
     let fDate = tempDate.getMonth() + 1 + '/' + tempDate.getDate() + '/' + tempDate.getFullYear();
 
     setTextDate(fDate);
-    dispatch(setFormPengaduan(tempDate, fDate));
+    onChangePengaduan(tempDate, fDate);
+    // dispatch(setFormPengaduan(tempDate, fDate));
   };
 
   const showMode = (currentMode) => {
