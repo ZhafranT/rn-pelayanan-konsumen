@@ -46,8 +46,8 @@ const Login = ({ navigation }) => {
       password: dataLogin.password,
     };
 
-    const url = 'https://pelayanan-konsumen.herokuapp.com/api/login';
-    // const url = 'https://7acc-139-0-234-230.ap.ngrok.io/api/login';
+    // const url = 'https://pelayanan-konsumen.herokuapp.com/api/login';
+    const url = 'https://7acc-139-0-234-230.ap.ngrok.io/api/login';
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
