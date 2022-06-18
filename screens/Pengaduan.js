@@ -67,7 +67,7 @@ const Pengaduan = () => {
       "waktuKejadianDitemukan": "",
     }
 
-    const {data,message} = await insertpengaduan(sample);
+    const {data,message} = await insertpengaduan(dataPengaduan);
     if (message == 200) {
       // handle 200
       // setisLoading(false)
