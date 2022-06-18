@@ -9,14 +9,19 @@ import { FocusStatusBar, FormPengaduan, RectButton } from '../components';
 import { COLORS, SHADOWS, SIZES, FONTS } from '../constants';
 import { useDispatch, useSelector } from 'react-redux';
 import { setFormPengaduan } from '../redux';
+import { insertpengaduan } from '../services/api';
 
 const Pengaduan = () => {
   const [date, setDate] = useState(new Date());
+  const [date2, setDate2] = useState(new Date());
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
+  const [show2, setShow2] = useState(false);
   const [textDate, setTextDate] = useState('mm/dd/yyyy');
+  const [textDate2, setTextDate2] = useState('mm/dd/yyyy');
 
-  useEffect(() => {}, [date]);
+
+  useEffect(() => {}, []);
 
   const PengaduanReducer = useSelector((state) => state.pengaduanReducer);
   const dispatch = useDispatch();
@@ -25,69 +30,101 @@ const Pengaduan = () => {
     dispatch(setFormPengaduan(input, value));
   };
 
-  const sendData = () => {
+  const sendData = async () => {
     const dataPengaduan = PengaduanReducer.formPengaduan;
     console.log('data masuk : ', dataPengaduan);
 
-    // const body = {
-    //   alamat: dataPengaduan.alamat,
-    //   email: dataPengaduan.email,
-    //   gender: dataPengaduan.gender,
-    //   namaLengkap: dataPengaduan.namaLengkap,
-    //   nik: dataPengaduan.nik,
-    //   noTelp: dataPengaduan.noTelp,
-    //   password: dataPengaduan.password,
-    // };
-    // const url = 'https://pelayanan-konsumen.herokuapp.com/api/pengaduan';
-    // const fetchRegister = async (body) => {
-    //   const requestOptions = {
-    //     method: 'POST',
-    //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify(body),
-    //   };
+    const sample = {
+      "6/1/2022": '2022-06-01T00:47:22.567Z',
+      "6/18/2022": '2022-06-18T00:47:22.567Z',
+      "alamat": "asdadsasd",
+      "alamatPelakuUsah": "asdasd",
+      "bukti": "asdasd",
+      "detailProduk": "Barang",
+      "email": "asd@gmail.com",
+      "inputKerugian": "asdasda",
+      "jenisKelamin": "pria",
+      "jenisPengaduan": "label",
+      "jenisProduk": "Barang",
+      "jenisTuntutan": "pengembalianUang",
+      "kerugian": "Fisik",
+      "kodePos": "123456",
+      "kodePosPelakuUsaha": "1231231",
+      "kotaKabupaten": "asdasd",
+      "kotaKabupatenPelakuUsaha": "asdasdasdasd",
+      "kronologiPengaduan": "asdasdasd",
+      "merkDagang": "123123",
+      "nama": "ad",
+      "noIdentitas": "1223131123123",
+      "provinsi": "asdasdasdasd",
+      "provinsiPelakuUsaha": "sadasdasdad",
+      "saksi": "asdasd",
+      "tanggalLahir": "",
+      "telepon": "08778123123123",
+      "teleponPelakuUsaha": "081237123213",
+      "tempatLokasiKejadian": "ads",
+      "type": "asdad",
+      "waktuKejadianDitemukan": "",
+    }
 
-    //   fetch(url, requestOptions)
-    //     .then((response) => {
-    //       const statusCode = response.status;
-    //       const data = response.json();
-    //       return Promise.all([statusCode, data]);
-    //     })
-    //     .then(([res, data]) => {
-    //       // handle success
-    //       console.log(res, data);
-    //       if (res === 200) {
-    //         // success
-    //       } else {
-    //         // gagal
-    //         setErrmsg(data);
-    //       }
-    //     })
-    //     .catch((err) => {
-    //       // handle error
-    //       // setErrmsg()
-    //       console.log(err);
-    //     });
-    // };
-
-    // fetchRegister(body);
+    const {data,message} = await insertpengaduan(sample);
+    if (message == 200) {
+      // handle 200
+      // setisLoading(false)
+      console.log("Pengaduan",data);
+      // setTimeout(() => {
+      //   navigation.navigate('Login');
+      // }, 2000);
+    } else if (message == 400) {
+      // handle 400
+      console.log("Pengaduan",data);
+      // setisLoading(false)
+      // setmainerrmmsg(data)
+    } else if (message == 500) {
+      // handle 500
+      console.log("Pengaduan",data);
+      // setisLoading(false)
+    } else {
+      // no interner
+      console.log("Pengaduan",data);
+      // setisLoading(false)
+    }
   };
 
-  const onChange = (event, selectedDate, formtype) => {
+  const onChange = (event, selectedDate) => {
+    setShow(false);
     const currentDate = selectedDate || date;
-    setShow(Platform.OS === 'ios');
+    // setShow(Platform.OS === 'ios');
     setDate(currentDate);
 
     let tempDate = new Date(currentDate);
     let fDate = tempDate.getMonth() + 1 + '/' + tempDate.getDate() + '/' + tempDate.getFullYear();
 
     setTextDate(fDate);
-    onChangePengaduan(tempDate, fDate);
+    onChangePengaduan('tanggalLahir', fDate);
     // dispatch(setFormPengaduan(tempDate, fDate));
   };
 
-  const showMode = (currentMode) => {
+  const onChange2 = (event, selectedDate) => {
+    setShow2(false);
+    const currentDate = selectedDate || date2
+    // setShow(Platform.OS === 'ios');
+    setDate2(currentDate);
+
+    let tempDate = new Date(currentDate);
+    let fDate = tempDate.getMonth() + 1 + '/' + tempDate.getDate() + '/' + tempDate.getFullYear();
+
+    setTextDate2(fDate);
+    onChangePengaduan('waktuKejadianDitemukan', fDate);
+    // dispatch(setFormPengaduan(tempDate, fDate));
+  };
+
+  const showMode = () => {
     setShow(true);
-    setMode(currentMode);
+  };
+
+  const showMode2 = () => {
+    setShow2(true);
   };
 
   return (
@@ -141,7 +178,7 @@ const Pengaduan = () => {
             }}>
             {textDate}
           </Text>
-          <TouchableOpacity onPress={() => showMode('date')}>
+          <TouchableOpacity onPress={() => showMode()}>
             <Fontisto name="date" size={24} color="black" />
           </TouchableOpacity>
           {show && <DateTimePicker value={date} mode={mode} display="default" onChange={onChange} />}
@@ -259,12 +296,12 @@ const Pengaduan = () => {
               fontSize: SIZES.medium,
               fontFamily: FONTS.regular,
             }}>
-            {textDate}
+            {textDate2}
           </Text>
-          <TouchableOpacity onPress={() => showMode('date')}>
+          <TouchableOpacity onPress={() => showMode2()}>
             <Fontisto name="date" size={24} color="black" />
           </TouchableOpacity>
-          {show && <DateTimePicker value={date} mode={mode} display="default" onChange={onChange} />}
+          {show2 && <DateTimePicker value={date2} mode={mode} display="default" onChange={onChange2} />}
         </View>
         <FormPengaduan placeholder="Lokasi Kejadian" value={PengaduanReducer.formPengaduan.tempatLokasiKejadian} onChangeText={(value) => onChangePengaduan(value, 'tempatLokasiKejadian')} />
 

@@ -42,3 +42,43 @@ export const registernewdata = (body) =>
         message: 'no internet',
       }
     });
+
+export const insertpengaduan = (body) =>
+  fetch(mainUrl + '/api/insertpengaduan', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  })
+    .then((response) => {
+      const statusCode = response.status;
+      const data = response.json();
+      return Promise.all([statusCode, data]);
+    })
+    .then(([res, data]) => {
+      if (res == 200) {
+        // 200
+        return {
+          data: checkobjectorno(data),
+          message: res
+        }
+      } else if (res == 400) {
+        // 400
+        return {
+          data: checkobjectorno(data),
+          message: res
+        }
+      } else {
+        // 500
+        return {
+          data: checkobjectorno(data),
+          message: res
+        }
+      }
+    })
+    .catch((err) => {
+      // handle no internet
+      return {
+        data: 'no internet',
+        message: 'no internet',
+      }
+    });
