@@ -9,5 +9,6 @@ import Status from './Status';
 import Profile from './Profile';
 import Help from './Help';
 import Notif from './Notif';
+import NewsDetail from './NewsDetail';
 
-export { Home, Login, Register, News, Spalsh, Uupk, Pengaduan, Status, Profile, Help, Notif };
+export { Home, Login, Register, News, Spalsh, Uupk, Pengaduan, Status, Profile, Help, Notif, NewsDetail };

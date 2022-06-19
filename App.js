@@ -8,7 +8,7 @@ import { Provider } from 'react-redux';
 import { useFonts } from 'expo-font';
 import { store } from './redux';
 
-import { Home, Login, Register, News, Spalsh, Uupk, Pengaduan, Status, Profile, Help, Notif } from './screens';
+import { Home, Login, Register, News, Spalsh, Uupk, Pengaduan, Status, Profile, Help, Notif, NewsDetail } from './screens';
 import { BottomNavigator } from './components';
 
 import { checklogin } from './utils';
@@ -78,6 +78,7 @@ const App = () => {
           {/* <Stack.Screen name="Login" component={Login} /> */}
           <Stack.Screen name="Pengaduan" component={Pengaduan} />
           <Stack.Screen name="News" component={News} />
+          <Stack.Screen name="NewsDetail" component={NewsDetail} />
           <Stack.Screen name="Uupk" component={Uupk} />
           <Stack.Screen name="Help" component={Help} />
           <Stack.Screen name="Notif" component={Notif} />

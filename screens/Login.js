@@ -46,8 +46,6 @@ const Login = ({ navigation }) => {
       password: dataLogin.password,
     };
 
-    // console.log('data login : ', body);
-
     // const url = 'https://pelayanan-konsumen.herokuapp.com/api/login';
     const url = 'https://7acc-139-0-234-230.ap.ngrok.io/api/login';
     const requestOptions = {
@@ -86,40 +84,6 @@ const Login = ({ navigation }) => {
         // handle error
         console.log('Login | err', err);
       });
-    // const userLogin = () => {
-    //   this.setState({
-    //     is_loading: true,
-    //   });
-    //   axios
-    //     .post(`${url}/api/login`, {
-    //       headers: { 'Content-Type': 'application/json' },
-    //       body: JSON.stringify(body),
-    //     })
-    //     .then((response) => {
-    //       if (response == true) {
-    //         this.setState({
-    //           is_loading: false,
-    //         });
-    //         const data = response.json();
-    //         AsyncStorage.setItem(ACCESS_TOKEN, data);
-    //         navigate('Home');
-    //       } else {
-    //         this.setState({
-    //           is_loading: false,
-    //         });
-    //         Toast.show({
-    //           text: response.data.message,
-    //           position: 'bottom',
-    //           buttonText: 'OK',
-    //           duration: 4000,
-    //         });
-    //       }
-    //     })
-    //     .catch(function (error) {
-    //       console.log(error);
-    //     });
-    // };
-    // userLogin(body);
   };
 
   return (
