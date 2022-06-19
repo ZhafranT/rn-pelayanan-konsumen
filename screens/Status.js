@@ -1,29 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { View, Text, SafeAreaView, StyleSheet, Image } from 'react-native';
-import { assets, COLORS, SHADOWS, SIZES, FONTS } from '../constants';
-import { FocusStatusBar, IconBack } from '../components';
+import { assets, COLORS, SHADOWS, SIZES, FONTS, StatusPengaduan } from '../constants';
+import { FocusStatusBar, IconBack, StatusBar } from '../components';
+
 import axios from 'axios';
 
 const Status = () => {
   const navigation = useNavigation();
   const [test, setTest] = useState(null);
-
-  useEffect(() => {
-    getapi();
-  }, []);
-
-  const getapi = async () => {
-    const url = 'https://reqres.in/api/users?page=1';
-    const options = {
-      method: 'get',
-      url,
-    };
-    const res = await axios(options);
-    if (res) {
-      console.log(res.request.data());
-    }
-  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -50,7 +35,9 @@ const Status = () => {
           </Text>
         </View>
       </View>
-      <View></View>
+      <View>
+        <StatusBar data={StatusPengaduan} />
+      </View>
     </SafeAreaView>
   );
 };
