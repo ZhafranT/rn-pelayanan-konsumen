@@ -8,14 +8,14 @@ const NewsItem = ({ data }) => {
   return (
     <View style={styles.container}>
       <View style={styles.card}>
-        <Image source={data.image} resizeMode="cover" style={styles.image} />
+        <Image source={{uri: data ? data.photo : null}} resizeMode="cover" style={styles.image} />
       </View>
       <View
         style={{
           width: '100%',
           padding: SIZES.font,
         }}>
-        <NewsTitle title={data.title} titleSize={SIZES.large} description={data.description} descriptionSize={SIZES.small} />
+        <NewsTitle title={data ? data.judulBerita: 'loading..'} titleSize={SIZES.large} description={data ? data.isiBerita.substring(0, 100) : 'loading..'} descriptionSize={SIZES.small} />
       </View>
     </View>
   );
