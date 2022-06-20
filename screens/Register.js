@@ -18,8 +18,7 @@ const Register = () => {
   const [mainerrmmsg, setmainerrmmsg] = useState(null);
   const [isLoading, setisLoading] = useState(false);
 
-  useEffect(() => {
-  }, [mainerrmmsg,isLoading]);
+  useEffect(() => {}, [mainerrmmsg, isLoading]);
 
   const onChangeRegis = (value, input) => {
     dispatch(setFormRegis(input, value));
@@ -37,24 +36,24 @@ const Register = () => {
       password: dataRegister.password,
     };
     console.log(body);
-    setisLoading(true)
-    const {data,message} = await registernewdata(body);
+    setisLoading(true);
+    const { data, message } = await registernewdata(body);
     if (message == 200) {
       // handle 200
-      setisLoading(false)
+      setisLoading(false);
       setTimeout(() => {
         navigation.navigate('Login');
       }, 2000);
     } else if (message == 400) {
       // handle 400
-      setisLoading(false)
-      setmainerrmmsg(data)
+      setisLoading(false);
+      setmainerrmmsg(data);
     } else if (message == 500) {
       // handle 500
-      setisLoading(false)
+      setisLoading(false);
     } else {
       // no interner
-      setisLoading(false)
+      setisLoading(false);
     }
   };
 
@@ -80,76 +79,76 @@ const Register = () => {
 
       <ScrollView>
         {mainerrmmsg != null &&
-          Object.keys(mainerrmmsg).map((i, x) => (
-            Object.keys(mainerrmmsg)[x].toLowerCase().includes('nik') && (
-              <View key={x}>
-                {Object.values(mainerrmmsg)[x].map((r) => (
-                  <Text>{r}</Text>
-                ))}
-              </View>
-            )
-          ))
-        }
+          Object.keys(mainerrmmsg).map(
+            (i, x) =>
+              Object.keys(mainerrmmsg)[x].toLowerCase().includes('nik') && (
+                <View key={x}>
+                  {Object.values(mainerrmmsg)[x].map((r) => (
+                    <Text key={r}>{r}</Text>
+                  ))}
+                </View>
+              )
+          )}
         <FormRegis placeholder="NIK" keyboardType="numeric" value={RegisterReducer.formRegis.nik} onChangeText={(value) => onChangeRegis(value, 'nik')} />
         {mainerrmmsg != null &&
-          Object.keys(mainerrmmsg).map((i, x) => (
-            Object.keys(mainerrmmsg)[x].toLowerCase().includes('nama') && (
-              <View key={x}>
-                {Object.values(mainerrmmsg)[x].map((r) => (
-                  <Text>{r}</Text>
-                ))}
-              </View>
-            )
-          ))
-        }
+          Object.keys(mainerrmmsg).map(
+            (i, x) =>
+              Object.keys(mainerrmmsg)[x].toLowerCase().includes('nama') && (
+                <View key={x}>
+                  {Object.values(mainerrmmsg)[x].map((r) => (
+                    <Text key={r}>{r}</Text>
+                  ))}
+                </View>
+              )
+          )}
         <FormRegis placeholder="Nama Lengkap" value={RegisterReducer.formRegis.namaLengkap} onChangeText={(value) => onChangeRegis(value, 'namaLengkap')} />
         {mainerrmmsg != null &&
-          Object.keys(mainerrmmsg).map((i, x) => (
-            Object.keys(mainerrmmsg)[x].toLowerCase().includes('email') && (
-              <View key={x}>
-                {Object.values(mainerrmmsg)[x].map((r) => (
-                  <Text>{r}</Text>
-                ))}
-              </View>
-            )
-          ))
-        }
+          Object.keys(mainerrmmsg).map(
+            (i, x) =>
+              Object.keys(mainerrmmsg)[x].toLowerCase().includes('email') && (
+                <View key={x}>
+                  {Object.values(mainerrmmsg)[x].map((r) => (
+                    <Text key={r}>{r}</Text>
+                  ))}
+                </View>
+              )
+          )}
         <FormRegis placeholder="Email" value={RegisterReducer.formRegis.email} onChangeText={(value) => onChangeRegis(value, 'email')} />
         {mainerrmmsg != null &&
-          Object.keys(mainerrmmsg).map((i, x) => (
-            Object.keys(mainerrmmsg)[x].toLowerCase().includes('alamat') && (
-              <View key={x}>
-                {Object.values(mainerrmmsg)[x].map((r) => (
-                  <Text>{r}</Text>
-                ))}
-              </View>
-            )
-          ))
-        }
+          Object.keys(mainerrmmsg).map(
+            (i, x) =>
+              Object.keys(mainerrmmsg)[x].toLowerCase().includes('alamat') && (
+                <View key={x}>
+                  {Object.values(mainerrmmsg)[x].map((r) => (
+                    <Text key={r}>{r}</Text>
+                  ))}
+                </View>
+              )
+          )}
         <FormRegis placeholder="Alamat" value={RegisterReducer.formRegis.alamat} onChangeText={(value) => onChangeRegis(value, 'alamat')} />
         {mainerrmmsg != null &&
-          Object.keys(mainerrmmsg).map((i, x) => (
-            Object.keys(mainerrmmsg)[x].toLowerCase().includes('notelp') && (
-              <View key={x}>
-                {Object.values(mainerrmmsg)[x].map((r) => (
-                  <Text>{r}</Text>
-                ))}
-              </View>
-            )
-          ))
-        }
+          Object.keys(mainerrmmsg).map(
+            (i, x) =>
+              Object.keys(mainerrmmsg)[x].toLowerCase().includes('notelp') && (
+                <View key={x}>
+                  {Object.values(mainerrmmsg)[x].map((r) => (
+                    <Text key={r}>{r}</Text>
+                  ))}
+                </View>
+              )
+          )}
         <FormRegis placeholder="Nomor Headphone" keyboardType="numeric" value={RegisterReducer.formRegis.noTelp} onChangeText={(value) => onChangeRegis(value, 'noTelp')} />
         {mainerrmmsg != null &&
-          Object.keys(mainerrmmsg).map((i, x) => (
-            Object.keys(mainerrmmsg)[x].toLowerCase().includes('gender') && (
-              <View key={x}>
-                {Object.values(mainerrmmsg)[x].map((r) => (
-                  <Text>{r}</Text>
-                ))}
-              </View>
-            )
-          ))
-        }
+          Object.keys(mainerrmmsg).map(
+            (i, x) =>
+              Object.keys(mainerrmmsg)[x].toLowerCase().includes('gender') && (
+                <View key={x}>
+                  {Object.values(mainerrmmsg)[x].map((r) => (
+                    <Text key={r}>{r}</Text>
+                  ))}
+                </View>
+              )
+          )}
         <View
           style={{
             borderWidth: 1,
@@ -170,18 +169,17 @@ const Register = () => {
           </Picker>
         </View>
         {mainerrmmsg != null &&
-          Object.keys(mainerrmmsg).map((i, x) => (
-            Object.keys(mainerrmmsg)[x].toLowerCase().includes('password') && (
-              <View key={x}>
-                {Object.values(mainerrmmsg)[x].map((r) => (
-                  <Text>{r}</Text>
-                ))}
-              </View>
-            )
-          ))
-        }
+          Object.keys(mainerrmmsg).map(
+            (i, x) =>
+              Object.keys(mainerrmmsg)[x].toLowerCase().includes('password') && (
+                <View key={x}>
+                  {Object.values(mainerrmmsg)[x].map((r) => (
+                    <Text key={r}>{r}</Text>
+                  ))}
+                </View>
+              )
+          )}
         <FormRegis placeholder="Password" secureTextEntry={true} value={RegisterReducer.formRegis.password} onChangeText={(value) => onChangeRegis(value, 'password')} />
-        
       </ScrollView>
       <Toast />
       <View
@@ -190,13 +188,7 @@ const Register = () => {
           alignItems: 'center',
           marginBottom: 10,
         }}>
-        {isLoading == true ? (
-          <RectButton title="Loading" backgroundColor={'gray'} />
-
-        ) : (
-          <RectButton title="Daftar" handlePress={sendData} backgroundColor={COLORS.primary2} />
-        )}
-        {/* () => navigation.navigate('Login', { sendData }) */}
+        {isLoading == true ? <RectButton title="Sukses" backgroundColor={'gray'} /> : <RectButton title="Daftar" handlePress={sendData} backgroundColor={COLORS.primary2} />}
       </View>
     </SafeAreaView>
   );
