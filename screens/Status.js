@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { View, Text, SafeAreaView, StyleSheet, Image, FlatList, TouchableOpacity } from 'react-native';
 import { assets, COLORS, SHADOWS, SIZES, FONTS } from '../constants';
-import { FocusStatusBar, IconBack } from '../components';
+import { FocusStatusBar, IconBack, StatusItems } from '../components';
 import { getstatuspengaduan } from '..//services/api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
