@@ -183,7 +183,7 @@ const Pengaduan = ({navigation}) => {
   }
 
   return (
-    isSuccess == true ? 
+    isSuccess != true ? 
     isLoading == false ?
     <SafeAreaView style={{ flex: 1, marginLeft: 10 }}>
       <FocusStatusBar background={COLORS.gray} />
