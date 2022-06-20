@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { View, Text, SafeAreaView, StyleSheet, Image, FlatList, TouchableOpacity } from 'react-native';
 import { assets, COLORS, SHADOWS, SIZES, FONTS } from '../constants';
-import { FocusStatusBar, IconBack } from '../components';
+import { FocusStatusBar, IconBack, StatusItems } from '../components';
 import { getstatuspengaduan } from '..//services/api';
 
 const Status = () => {
@@ -69,21 +69,11 @@ const Status = () => {
             { id: 1, name: 'oke', tgl: '123' },
             { id: 2, name: 'oke', tgl: '123' },
             { id: 3, name: 'oke', tgl: '123' },
+            { id: 4, name: 'oke', tgl: '123' },
           ]}
-          renderItem={({ item }) => (
-            <TouchableOpacity style={{ margin: 8, marginRight: 12, marginLeft: 12 }} onPress={null}>
-              <View
-                style={{
-                  backgroundColor: '#17C3B2',
-                  padding: 8,
-                  borderRadius: 8,
-                }}>
-                <Text>{item.id}</Text>
-                <Text>{item.name}</Text>
-                <Text>{item.tgl}</Text>
-              </View>
-            </TouchableOpacity>
-          )}
+          renderItem={({ item }) => {
+            return <StatusItems item={item} />;
+          }}
           keyExtractor={(item) => item.id}
           showsVerticalScrollIndicator={false}
         />
