@@ -91,7 +91,7 @@ const Status = () => {
         textAlign: 'center',
         fontWeight: 'bold'
       }}>{isdetail == false ? 'Status Pengaduan': 'Detail Pengaduan' }</Text>
-      {isdetail != false ? (
+      {isdetail == false ? (
         <View style={{flex: 1}}>
           {isLoading == true ? (
             <TouchableOpacity style={{margin: 8, marginRight: 12, marginLeft: 12}} onPress={null}>
