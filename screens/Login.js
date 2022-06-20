@@ -46,8 +46,8 @@ const Login = ({ navigation }) => {
       password: dataLogin.password,
     };
 
-    // const url = 'https://pelayanan-konsumen.herokuapp.com/api/login';
-    const url = 'https://7acc-139-0-234-230.ap.ngrok.io/api/login';
+    const url = 'https://pelayanan-konsumen.herokuapp.com/api/login';
+    // const url = 'https://7acc-139-0-234-230.ap.ngrok.io/api/login';
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -62,7 +62,8 @@ const Login = ({ navigation }) => {
       .then(([res, data]) => {
         if (res == 200) {
           console.log('Login | 200', data);
-          AsyncStorage.setItem('ACCESS_TOKEN', JSON.stringify(data));
+          AsyncStorage.setItem('ACCESS_TOKEN', JSON.stringify(data.token));
+          AsyncStorage.setItem('USER_ID', JSON.stringify(data.userdataid[0].id));
           AsyncStorage.setItem('IS_LOGIN', 'true');
 
           Toast.show({

@@ -132,3 +132,30 @@ export const getnewsapi = () =>
       // handle no internet
       return no_internet
     });
+
+export const getstatuspengaduan = () =>
+  fetch(mainUrl + '/api/respon-pengaduan', {
+    method: get_method,
+    headers: setheaders
+  })
+    .then((response) => {
+      const statusCode = response.status;
+      const data = response.json();
+      return Promise.all([statusCode, data]);
+    })
+    .then(([res, data]) => {
+      if (res == 200) {
+        // 200
+        return responseparser(data,res)
+      } else if (res == 400) {
+        // 400
+        return responseparser(data,res)
+      } else {
+        // 500
+        return responseparser(data,res)
+      }
+    })
+    .catch((err) => {
+      // handle no internet
+      return no_internet
+    });
