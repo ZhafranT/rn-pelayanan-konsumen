@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 import { Fontisto } from '@expo/vector-icons';
-
+import { CommonActions, StackActions } from '@react-navigation/native';
 import { FocusStatusBar, FormPengaduan, RectButton } from '../components';
 import { COLORS, SHADOWS, SIZES, FONTS } from '../constants';
 import { useDispatch, useSelector } from 'react-redux';
 import { setFormPengaduan } from '../redux';
 import { insertpengaduan } from '../services/api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import moment from 'moment';
+const Successpengaduan = '../assets/images/successpengaduan.png';
 
-const Pengaduan = () => {
+const Pengaduan = ({navigation}) => {
   const [date, setDate] = useState(new Date());
   const [date2, setDate2] = useState(new Date());
   const [mode, setMode] = useState('date');
@@ -20,6 +22,8 @@ const Pengaduan = () => {
   const [show2, setShow2] = useState(false);
   const [textDate, setTextDate] = useState('mm/dd/yyyy');
   const [textDate2, setTextDate2] = useState('mm/dd/yyyy');
+  const [isLoading, setisLoading] = useState(false)
+  const [isSuccess, setisSuccess] = useState(false)
 
 
   useEffect(() => {}, []);
@@ -32,66 +36,103 @@ const Pengaduan = () => {
   };
 
   const sendData = async () => {
+    setisLoading(true)
     const dataPengaduan = PengaduanReducer.formPengaduan;
     console.log('data masuk : ', dataPengaduan);
     const uid = await AsyncStorage.getItem('USER_ID')
     const sample = {
       "user_id": uid,
-      "alamat": "asdadsasd",
-      "alamatPelakuUsah": "asdasd",
-      "bukti": "asdasd",
-      "detailProduk": "Barang",
-      "email": "asd@gmail.com",
-      "inputKerugian": "asdasda",
-      "jenisKelamin": "pria",
-      "jenisPengaduan": "label",
-      "jenisProduk": "Barang",
-      "jenisTuntutan": "pengembalianUang",
-      "kerugian": "Fisik",
-      "kodePos": "123456",
-      "kodePosPelakuUsaha": "1231231",
-      "kotaKabupaten": "asdasd",
-      "kotaKabupatenPelakuUsaha": "asdasdasdasd",
-      "kronologiPengaduan": "asdasdasd",
-      "merkDagang": "123123",
-      "nama": "ad",
-      "noIdentitas": "1223131123123",
-      "provinsi": "asdasdasdasd",
-      "provinsiPelakuUsaha": "sadasdasdad",
-      "saksi": "asdasd",
-      "tanggalLahir": "2022-02-15",
-      "telepon": "08778123123123",
-      "teleponPelakuUsaha": "081237123213",
-      "tempatLokasiKejadian": "ads",
-      "type": "asdad",
-      "alamatTempatBarangJasa": "biji bijian",
-      "kerugianMaterial": "biji febio",
-      "kerugianFisik": "biji febio",
-      "kerugianPsikis": "biji febio",
-      "waktuKejadianDitemukan": "2022-02-15"
+      "alamat": dataPengaduan.alamat,
+      "alamatPelakuUsah": dataPengaduan.alamatPelakuUsah,
+      "bukti": dataPengaduan.bukti,
+      "detailProduk": dataPengaduan.detailProduk,
+      "email": dataPengaduan.email,
+      "inputKerugian": dataPengaduan.inputKerugian,
+      "jenisKelamin": dataPengaduan.jenisKelamin,
+      "jenisPengaduan": dataPengaduan.jenisPengaduan,
+      "jenisProduk": dataPengaduan.jenisProduk,
+      "jenisTuntutan": dataPengaduan.jenisTuntutan,
+      "kerugian": dataPengaduan.kerugian,
+      "kodePos": dataPengaduan.kodePos,
+      "kodePosPelakuUsaha": dataPengaduan.kodePosPelakuUsaha,
+      "kotaKabupaten": dataPengaduan.kotaKabupaten,
+      "kotaKabupatenPelakuUsaha": dataPengaduan.kotaKabupatenPelakuUsaha,
+      "kronologiPengaduan": dataPengaduan.kronologiPengaduan,
+      "merkDagang": dataPengaduan.merkDagang,
+      "nama": dataPengaduan.nama,
+      "noIdentitas": dataPengaduan.noIdentitas,
+      "provinsi": dataPengaduan.provinsi,
+      "provinsiPelakuUsaha": dataPengaduan.provinsiPelakuUsaha,
+      "saksi": dataPengaduan.saksi,
+      "tanggalLahir": moment(new Date(dataPengaduan.tanggalLahir)).format('YYYY-MM-DD'),
+      "telepon": dataPengaduan.telepon,
+      "teleponPelakuUsaha": dataPengaduan.teleponPelakuUsaha,
+      "tempatLokasiKejadian": dataPengaduan.tempatLokasiKejadian,
+      "type": dataPengaduan.type,
+      "alamatTempatBarangJasa": dataPengaduan.alamatTempatBarangJasa == undefined ? '-' : dataPengaduan.alamatTempatBarangJasa,
+      "kerugianMaterial": dataPengaduan.kerugianMaterial == undefined ? '-' : dataPengaduan.kerugianMaterial,
+      "kerugianFisik": dataPengaduan.kerugianFisik == undefined ? '-' : dataPengaduan.kerugianFisik,
+      "kerugianPsikis": dataPengaduan.kerugianPsikis == undefined ? '-' : dataPengaduan.kerugianPsikis,
+      "waktuKejadianDitemukan": moment(new Date(dataPengaduan.waktuKejadianDitemukan)).format('YYYY-MM-DD')
     }
+    // const sample = {
+    //   "alamat": "jakarta raya",
+    //   "alamatPelakuUsah": "Jakarta Raya",
+    //   "alamatTempatBarangJasa": "-",
+    //   "bukti": "ga ada",
+    //   "detailProduk": "Barang",
+    //   "email": "febio@gmail.com",
+    //   "inputKerugian": "rusak nih",
+    //   "jenisKelamin": "pria",
+    //   "jenisPengaduan": "lainLain",
+    //   "jenisProduk": "Jasa",
+    //   "jenisTuntutan": "pengembalianUang",
+    //   "kerugian": "Fisik",
+    //   "kerugianFisik": "-",
+    //   "kerugianMaterial": "-",
+    //   "kerugianPsikis": "-",
+    //   "kodePos": "13450",
+    //   "kodePosPelakuUsaha": "13450",
+    //   "kotaKabupaten": "Jakarta Timur",
+    //   "kotaKabupatenPelakuUsaha": "Jakarta Timur",
+    //   "kronologiPengaduan": "barang rusak pas unboxing",
+    //   "merkDagang": "13450",
+    //   "nama": "febio",
+    //   "noIdentitas": "1234512345123456",
+    //   "provinsi": "DKI Jakarta",
+    //   "provinsiPelakuUsaha": "DKI Jakarta",
+    //   "saksi": "ga ada",
+    //   "tanggalLahir": "1999-06-20",
+    //   "telepon": "087787666222",
+    //   "teleponPelakuUsaha": "087787666555",
+    //   "tempatLokasiKejadian": "rumah",
+    //   "type": "ga tau",
+    //   "user_id": "64",
+    //   "waktuKejadianDitemukan": "2022-06-01",
+    // }
     console.log(sample);
     const {data,message} = await insertpengaduan(sample);
     if (message == 200) {
       // handle 200
-      // setisLoading(false)
+      setisLoading(false)
       console.log("Pengaduan",data);
+      setisSuccess(true)
       // setTimeout(() => {
       //   navigation.navigate('Login');
       // }, 2000);
     } else if (message == 400) {
       // handle 400
       console.log("Pengaduan gagal",data);
-      // setisLoading(false)
+      setisLoading(false)
       // setmainerrmmsg(data)
     } else if (message == 500) {
       // handle 500
       console.log("Pengaduan gagal",data);
-      // setisLoading(false)
+      setisLoading(false)
     } else {
       // no interner
       console.log("Pengaduan no internet",data);
-      // setisLoading(false)
+      setisLoading(false)
     }
   };
 
@@ -105,7 +146,7 @@ const Pengaduan = () => {
     let fDate = tempDate.getMonth() + 1 + '/' + tempDate.getDate() + '/' + tempDate.getFullYear();
 
     setTextDate(fDate);
-    onChangePengaduan('tanggalLahir', fDate);
+    onChangePengaduan(fDate,'tanggalLahir');
     // dispatch(setFormPengaduan(tempDate, fDate));
   };
 
@@ -119,7 +160,7 @@ const Pengaduan = () => {
     let fDate = tempDate.getMonth() + 1 + '/' + tempDate.getDate() + '/' + tempDate.getFullYear();
 
     setTextDate2(fDate);
-    onChangePengaduan('waktuKejadianDitemukan', fDate);
+    onChangePengaduan(fDate,'waktuKejadianDitemukan');
     // dispatch(setFormPengaduan(tempDate, fDate));
   };
 
@@ -131,7 +172,19 @@ const Pengaduan = () => {
     setShow2(true);
   };
 
+  const navigatehome = () => {
+    navigation.goBack()
+  }
+
+  const navigatestatus = () => {
+    navigation.dispatch(
+      StackActions.replace('Navilogin',{ screen: 'Status' })
+    );
+  }
+
   return (
+    isSuccess == true ? 
+    isLoading == false ?
     <SafeAreaView style={{ flex: 1, marginLeft: 10 }}>
       <FocusStatusBar background={COLORS.gray} />
       <View style={styles.headers}>
@@ -385,8 +438,82 @@ const Pengaduan = () => {
         <RectButton title="Submit" handlePress={sendData} backgroundColor={COLORS.primary2} />
       </View>
     </SafeAreaView>
+    :
+    <SafeAreaView style={{ flex: 1, marginLeft: 10 }}>
+      <FocusStatusBar background={COLORS.gray} />
+      <View style={styles.headers}>
+        <Text
+          style={{
+            textAlign: 'center',
+            fontSize: SIZES.extraLarge,
+            fontFamily: FONTS.medium,
+          }}>
+          Pengaduan
+        </Text>
+      </View>
+      <Text style={{
+        textAlign: 'center',
+        fontWeight: 'bold'
+      }}>Loading...</Text>
+    </SafeAreaView>
+    : 
+    <Success navigatehome={navigatehome} navigatestatus={navigatestatus} />
   );
 };
+
+const Success = ({navigatehome,navigatestatus}) => {
+  return (
+    <SafeAreaView  style={{
+      flex: 1
+    }}>
+      <View style={{
+        flex: 1,
+        justifyContent: 'center'
+      }}>
+        <Image style={{
+          alignSelf: 'center',
+          width: 150,
+          height: 150,
+          resizeMode: 'cover'
+        }} source={require(Successpengaduan)}></Image>
+        <View style={{padding:10}}></View>
+        <Text style={{
+          textAlign: 'center',
+          fontSize: 20
+        }}>Data yang anda masukan{'\n'}sukses diinput</Text>
+        <Text style={{
+          textAlign: 'center',
+          fontSize: 15
+        }}>Pihak terkait akan memeriksa laporan anda</Text>
+        <View style={{padding:10}}></View>
+        <View style={{
+          padding: 10
+        }}>
+          <TouchableOpacity onPress={navigatehome}>
+            <Text style={{
+              borderRadius: 8,
+              padding: 20,
+              textAlign: 'center',
+              backgroundColor: '#17C3B2'
+            }}>Kembali ke Home</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={{
+          padding: 10
+        }}>
+          <TouchableOpacity onPress={navigatestatus}>
+            <Text style={{
+              borderRadius: 8,
+              padding: 20,
+              textAlign: 'center',
+              backgroundColor: '#FFCB77'
+            }}>Lihat Status Pengaduan</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </SafeAreaView>
+  )
+}
 
 const styles = StyleSheet.create({
   headers: {

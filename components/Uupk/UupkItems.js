@@ -85,9 +85,9 @@ const UupkItems = ({ data }) => {
 export default UupkItems;
 
 const styles = StyleSheet.create({
-  // container: {
-  //   flex: 1,
-  // },
+  container: {
+    flex: 1,
+  },
   header: {
     flexDirection: 'row',
     padding: 10,
