@@ -1,10 +1,36 @@
-import React, { useState } from 'react';
-import { View, Text, SafeAreaView, FlatList } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, SafeAreaView, FlatList, TouchableOpacity } from 'react-native';
 import { FocusStatusBar, NewsItem } from '../components';
 import { assets, COLORS, SHADOWS, SIZES, FONTS, CarouselData } from '../constants';
+import { getnewsapi } from '../services/api';
+import Toast from 'react-native-toast-message';
 
-const News = () => {
-  const [news, setNews] = useState(CarouselData);
+const News = ({navigation}) => {
+  const [news, setNews] = useState(null);
+  const [isLoading, setisLoading] = useState(true);
+
+  useEffect(() => {
+    getnewdata()
+  },[news])
+
+  const getnewdata = async () => {
+    const {data,message} = await getnewsapi()
+    if (message == 200) {
+      // handle 200
+      setNews(data.data)
+    } else if (message == 400) {
+      // handle 400
+    } else if (message == 500) {
+      // handle 500
+    } else {
+      // no interner
+    }
+    setisLoading(false)
+  }
+
+  const navigatedetail = (value) => {
+    navigation.navigate('NewsDetail',{data: value})
+  }
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -27,17 +53,26 @@ const News = () => {
           News Today
         </Text>
       </View>
-      <View>
-        <FlatList
-          data={news}
-          renderItem={({ item }) => <NewsItem data={item} />}
-          keyExtractor={(item) => item.id}
-          showsVerticalScrollIndicator={false}
-          // style={{
-
-          // }}
-        />
-      </View>
+        <View style={{flex: 1}}>
+          {isLoading == true ? (
+            <NewsItem data={''} />
+          ) : (
+            news != null ? (
+              <FlatList
+                data={news}
+                renderItem={({ item }) => <TouchableOpacity onPress={() => navigatedetail(item)}>
+                  <NewsItem data={item} />
+                </TouchableOpacity>}
+                keyExtractor={(item) => item.id}
+                showsVerticalScrollIndicator={false}
+              />
+            ) : (
+              <Text style={{
+                textAlign: 'center'
+              }}>No News for Today</Text>
+            )
+          )}
+        </View>
     </SafeAreaView>
   );
 };
