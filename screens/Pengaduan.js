@@ -10,6 +10,7 @@ import { COLORS, SHADOWS, SIZES, FONTS } from '../constants';
 import { useDispatch, useSelector } from 'react-redux';
 import { setFormPengaduan } from '../redux';
 import { insertpengaduan } from '../services/api';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Pengaduan = () => {
   const [date, setDate] = useState(new Date());
@@ -33,10 +34,9 @@ const Pengaduan = () => {
   const sendData = async () => {
     const dataPengaduan = PengaduanReducer.formPengaduan;
     console.log('data masuk : ', dataPengaduan);
-
+    const uid = await AsyncStorage.getItem('USER_ID')
     const sample = {
-      "6/1/2022": '2022-06-01T00:47:22.567Z',
-      "6/18/2022": '2022-06-18T00:47:22.567Z',
+      "user_id": uid,
       "alamat": "asdadsasd",
       "alamatPelakuUsah": "asdasd",
       "bukti": "asdasd",
@@ -59,15 +59,19 @@ const Pengaduan = () => {
       "provinsi": "asdasdasdasd",
       "provinsiPelakuUsaha": "sadasdasdad",
       "saksi": "asdasd",
-      "tanggalLahir": "",
+      "tanggalLahir": "2022-02-15",
       "telepon": "08778123123123",
       "teleponPelakuUsaha": "081237123213",
       "tempatLokasiKejadian": "ads",
       "type": "asdad",
-      "waktuKejadianDitemukan": "",
+      "alamatTempatBarangJasa": "biji bijian",
+      "kerugianMaterial": "biji febio",
+      "kerugianFisik": "biji febio",
+      "kerugianPsikis": "biji febio",
+      "waktuKejadianDitemukan": "2022-02-15"
     }
-
-    const {data,message} = await insertpengaduan(dataPengaduan);
+    console.log(sample);
+    const {data,message} = await insertpengaduan(sample);
     if (message == 200) {
       // handle 200
       // setisLoading(false)
@@ -77,16 +81,16 @@ const Pengaduan = () => {
       // }, 2000);
     } else if (message == 400) {
       // handle 400
-      console.log("Pengaduan",data);
+      console.log("Pengaduan gagal",data);
       // setisLoading(false)
       // setmainerrmmsg(data)
     } else if (message == 500) {
       // handle 500
-      console.log("Pengaduan",data);
+      console.log("Pengaduan gagal",data);
       // setisLoading(false)
     } else {
       // no interner
-      console.log("Pengaduan",data);
+      console.log("Pengaduan no internet",data);
       // setisLoading(false)
     }
   };

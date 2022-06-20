@@ -1,27 +1,40 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { View, Text, SafeAreaView, StyleSheet, Image } from 'react-native';
+import { View, Text, SafeAreaView, StyleSheet, Image, FlatList, TouchableOpacity } from 'react-native';
 import { assets, COLORS, SHADOWS, SIZES, FONTS } from '../constants';
 import { FocusStatusBar, IconBack } from '../components';
-import axios from 'axios';
+import { getstatuspengaduan } from '..//services/api';
 
 const Status = () => {
   const navigation = useNavigation();
   const [test, setTest] = useState(null);
 
   useEffect(() => {
-    getapi();
+    getdata();
   }, []);
 
-  const getapi = async () => {
-    const url = 'https://reqres.in/api/users?page=1';
-    const options = {
-      method: 'get',
-      url,
-    };
-    const res = await axios(options);
-    if (res) {
-      console.log(res.request.data());
+  const getdata = async () => {
+    const { data, message } = await getstatuspengaduan();
+    if (message == 200) {
+      // handle 200
+      // setisLoading(false)
+      console.log('Status', data);
+      // setTimeout(() => {
+      //   navigation.navigate('Login');
+      // }, 2000);
+    } else if (message == 400) {
+      // handle 400
+      console.log('Status gagal', data);
+      // setisLoading(false)
+      // setmainerrmmsg(data)
+    } else if (message == 500) {
+      // handle 500
+      console.log('Status gagal', data);
+      // setisLoading(false)
+    } else {
+      // no interner
+      console.log('Status no internet', data);
+      // setisLoading(false)
     }
   };
 
@@ -50,7 +63,31 @@ const Status = () => {
           </Text>
         </View>
       </View>
-      <View></View>
+      <View style={{ flex: 1 }}>
+        <FlatList
+          data={[
+            { id: 1, name: 'oke', tgl: '123' },
+            { id: 2, name: 'oke', tgl: '123' },
+            { id: 3, name: 'oke', tgl: '123' },
+          ]}
+          renderItem={({ item }) => (
+            <TouchableOpacity style={{ margin: 8, marginRight: 12, marginLeft: 12 }} onPress={null}>
+              <View
+                style={{
+                  backgroundColor: '#17C3B2',
+                  padding: 8,
+                  borderRadius: 8,
+                }}>
+                <Text>{item.id}</Text>
+                <Text>{item.name}</Text>
+                <Text>{item.tgl}</Text>
+              </View>
+            </TouchableOpacity>
+          )}
+          keyExtractor={(item) => item.id}
+          showsVerticalScrollIndicator={false}
+        />
+      </View>
     </SafeAreaView>
   );
 };
@@ -58,7 +95,7 @@ const Status = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginLeft: 10,
+    // marginLeft: 10,
   },
   imageLogo: {
     padding: 65,
