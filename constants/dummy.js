@@ -284,27 +284,4 @@ const UupkData = [
   },
 ];
 
-const StatusPengaduan = [
-  {
-    idStatus: 'sent',
-    title: 'Laporan anda telah terkirim',
-    tanggal: '01-10-2022',
-  },
-  {
-    idStatus: 'onProses',
-    title: 'Laporan anda telah terkirim',
-    tanggal: '03-10-2022',
-  },
-  {
-    idStatus: 'Mediasi',
-    title: 'Laporan anda telah terkirim',
-    tanggal: '06-10-2022',
-  },
-  {
-    idStatus: 'Done',
-    title: 'Laporan anda telah terkirim',
-    tanggal: '07-10-2022',
-  },
-];
-
-export { CarouselData, UupkData, StatusPengaduan };
+export { CarouselData, UupkData };
