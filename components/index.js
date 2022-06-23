@@ -4,8 +4,8 @@ import Carousel from './Carousel';
 import NewsItem from './NewsItem';
 import CardProfile from './CardProfile';
 import UupkItems from './Uupk/UupkItems';
-import StatusItems from './Status/StatusItems';
+import StatusPengaduan from './StatusPengaduan/StatusPengaduan';
 import { RectButton, RegisHere, IconNews, IconUupk, IconPengaduan, IconBack, IconNotif, IconHelp } from './Button';
 import { FormRegis, FormPengaduan, FormLogin } from './Form';
 
-export { FocusStatusBar, RectButton, FormRegis, RegisHere, IconNews, IconUupk, IconPengaduan, FormPengaduan, FormLogin, IconBack, BottomNavigator, Carousel, NewsItem, CardProfile, UupkItems, IconNotif, IconHelp, StatusItems };
+export { FocusStatusBar, RectButton, FormRegis, RegisHere, IconNews, IconUupk, IconPengaduan, FormPengaduan, FormLogin, IconBack, BottomNavigator, Carousel, NewsItem, CardProfile, UupkItems, IconNotif, IconHelp, StatusPengaduan };

@@ -75,7 +75,6 @@ const App = () => {
           <Stack.Screen name="Navinon" component={Navinon} />
           <Stack.Screen name="Navilogin" component={Navilogin} />
           <Stack.Screen name="Register" component={Register} />
-          {/* <Stack.Screen name="Login" component={Login} /> */}
           <Stack.Screen name="Pengaduan" component={Pengaduan} />
           <Stack.Screen name="News" component={News} />
           <Stack.Screen name="NewsDetail" component={NewsDetail} />

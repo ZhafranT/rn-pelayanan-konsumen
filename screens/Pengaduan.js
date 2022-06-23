@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
-
+import * as ImagePicker from 'expo-image-picker';
 import { Fontisto } from '@expo/vector-icons';
 import { CommonActions, StackActions } from '@react-navigation/native';
 import { FocusStatusBar, FormPengaduan, RectButton } from '../components';
@@ -24,8 +24,7 @@ const Pengaduan = ({ navigation }) => {
   const [textDate2, setTextDate2] = useState('mm/dd/yyyy');
   const [isLoading, setisLoading] = useState(false);
   const [isSuccess, setisSuccess] = useState(false);
-
-  useEffect(() => {}, []);
+  const [selectedImage, setSelectedImage] = useState(null);
 
   const PengaduanReducer = useSelector((state) => state.pengaduanReducer);
   const dispatch = useDispatch();
@@ -74,41 +73,7 @@ const Pengaduan = ({ navigation }) => {
       kerugianPsikis: dataPengaduan.kerugianPsikis == undefined ? '-' : dataPengaduan.kerugianPsikis,
       waktuKejadianDitemukan: moment(new Date(dataPengaduan.waktuKejadianDitemukan)).format('YYYY-MM-DD'),
     };
-    // const sample = {
-    //   "alamat": "jakarta raya",
-    //   "alamatPelakuUsah": "Jakarta Raya",
-    //   "alamatTempatBarangJasa": "-",
-    //   "bukti": "ga ada",
-    //   "detailProduk": "Barang",
-    //   "email": "febio@gmail.com",
-    //   "inputKerugian": "rusak nih",
-    //   "jenisKelamin": "pria",
-    //   "jenisPengaduan": "lainLain",
-    //   "jenisProduk": "Jasa",
-    //   "jenisTuntutan": "pengembalianUang",
-    //   "kerugian": "Fisik",
-    //   "kerugianFisik": "-",
-    //   "kerugianMaterial": "-",
-    //   "kerugianPsikis": "-",
-    //   "kodePos": "13450",
-    //   "kodePosPelakuUsaha": "13450",
-    //   "kotaKabupaten": "Jakarta Timur",
-    //   "kotaKabupatenPelakuUsaha": "Jakarta Timur",
-    //   "kronologiPengaduan": "barang rusak pas unboxing",
-    //   "merkDagang": "13450",
-    //   "nama": "febio",
-    //   "noIdentitas": "1234512345123456",
-    //   "provinsi": "DKI Jakarta",
-    //   "provinsiPelakuUsaha": "DKI Jakarta",
-    //   "saksi": "ga ada",
-    //   "tanggalLahir": "1999-06-20",
-    //   "telepon": "087787666222",
-    //   "teleponPelakuUsaha": "087787666555",
-    //   "tempatLokasiKejadian": "rumah",
-    //   "type": "ga tau",
-    //   "user_id": "64",
-    //   "waktuKejadianDitemukan": "2022-06-01",
-    // }
+
     console.log(sample);
     const { data, message } = await insertpengaduan(sample);
     if (message == 200) {
@@ -162,6 +127,35 @@ const Pengaduan = ({ navigation }) => {
     onChangePengaduan(fDate, 'waktuKejadianDitemukan');
     // dispatch(setFormPengaduan(tempDate, fDate));
   };
+
+  // add image
+  const openImagePickerAsync = async () => {
+    let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+    if (permissionResult.granted === false) {
+      alert('Permission to access camera roll is required!');
+      return;
+    }
+
+    let pickerResult = await ImagePicker.launchImageLibraryAsync();
+
+    if (pickerResult.cancelled === true) {
+      return;
+    }
+
+    setSelectedImage({ localUri: pickerResult.uri });
+  };
+
+  if (selectedImage !== null) {
+    return (
+      <View style={styles.container}>
+        <Image
+          source={{ uri: selectedImage.localUri }}
+          style={styles.thumbnail}
+        />
+      </View>
+    );
+  }
 
   const showMode = () => {
     setShow(true);
@@ -366,6 +360,10 @@ const Pengaduan = ({ navigation }) => {
             }}>
             Bukti - Bukti
           </Text>
+          <TouchableOpacity onPress={openImagePickerAsync} style={styles.button}>
+            <Text style={styles.buttonText}>Pick a photo</Text>
+          </TouchableOpacity>
+
           <FormPengaduan placeholder="Bukti Pembelian" value={PengaduanReducer.formPengaduan.buktiPembelian} onChangeText={(value) => onChangePengaduan(value, 'buktiPembelian')} />
           <FormPengaduan placeholder="Saksi" value={PengaduanReducer.formPengaduan.saksi == undefined ? 'Tidak ada saksi' : PengaduanReducer.formPengaduan.saksi} onChangeText={(value) => onChangePengaduan(value, 'saksi')} />
           <Text
@@ -393,8 +391,6 @@ const Pengaduan = ({ navigation }) => {
             </Picker>
           </View>
           <FormPengaduan placeholder="Jelaskan dari Kerugian" value={PengaduanReducer.formPengaduan.inputKerugian} onChangeText={(value) => onChangePengaduan(value, 'inputKerugian')} />
-          {/* <FormPengaduan placeholder="Bentuk Kerugian" value={PengaduanReducer.formPengaduan.kerugian} onChangeText={(value) => onChangePengaduan(value, 'kerugian')} /> */}
-
           <Text
             style={{
               fontSize: SIZES.medium,
