@@ -12,27 +12,7 @@ import { setFormLogin } from '../redux';
 const Login = ({ navigation }) => {
   const LoginReducer = useSelector((state) => state.loginReducer);
   const dispatch = useDispatch();
-
   const [errmmsg, setErrmsg] = useState(null);
-  const [mainerrmmsg, setmainerrmmsg] = useState(null);
-
-  useEffect(() => {
-    getdata();
-  }, [errmmsg, mainerrmmsg]);
-
-  const getdata = () => {
-    if (errmmsg != null || errmmsg != undefined) {
-      console.log('errmmsg', errmmsg);
-      // const x = JSON.parse(errmmsg);
-      // let newerr = [];
-      // for (let index = 0; index < Object.keys(errmmsg).length; index++) {
-      //   // newerr.push({ errname: Object.keys(x)[index], errdesc: Object.values(x)[index][0] });
-      //   console.log(newerr);
-      // }
-      setmainerrmmsg(errmmsg);
-      // console.log(newerr);
-    }
-  };
 
   const onChangeLogin = (value, input) => {
     dispatch(setFormLogin(input, value));
@@ -77,6 +57,7 @@ const Login = ({ navigation }) => {
         } else if (res == 400) {
           // setErrmsg(data);
           console.log('Login | 400', data);
+          setErrmsg(data.error)
         } else {
           console.log('Login | 500', data);
         }
@@ -115,11 +96,13 @@ const Login = ({ navigation }) => {
           alignItems: 'center',
           marginTop: 10,
         }}>
-        <Text>{errmmsg}</Text>
+          {errmmsg != null && (
+            <Text>{errmmsg}</Text>
+          )}
         <RectButton title="Login" handlePress={sendData} backgroundColor={COLORS.primary2} />
         <RegisHere handlePress={() => navigation.navigate('Register')} />
       </View>
-      {mainerrmmsg != null &&
+      {/* {mainerrmmsg != null &&
         Object.keys(mainerrmmsg).map((i, x) => (
           <View>
             <Text>{Object.keys(mainerrmmsg)[x]}</Text>
@@ -127,7 +110,7 @@ const Login = ({ navigation }) => {
               <Text>{r}</Text>
             ))}
           </View>
-        ))}
+        ))} */}
 
       <View
         style={{

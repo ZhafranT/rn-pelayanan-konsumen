@@ -12,6 +12,7 @@ import { setFormPengaduan } from '../redux';
 import { insertpengaduan } from '../services/api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import moment from 'moment';
+import { checklogin } from '../utils';
 const Successpengaduan = '../assets/images/successpengaduan.png';
 
 const Pengaduan = ({ navigation }) => {
@@ -25,11 +26,26 @@ const Pengaduan = ({ navigation }) => {
   const [isLoading, setisLoading] = useState(false);
   const [isSuccess, setisSuccess] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [jasaorbarang, setjasaorbarang] = useState(null);
+
+  useEffect(() => {
+
+  },[jasaorbarang])
+
 
   const PengaduanReducer = useSelector((state) => state.pengaduanReducer);
   const dispatch = useDispatch();
 
   const onChangePengaduan = (value, input) => {
+    if (input === 'jenisProduk') {
+      if (value === 'Jasa') {
+        setjasaorbarang('Jasa')
+      } else if (value === 'Barang') {
+        setjasaorbarang('Barang')
+      } else {
+        setjasaorbarang(null)
+      }
+    }
     dispatch(setFormPengaduan(input, value));
   };
 
@@ -141,21 +157,23 @@ const Pengaduan = ({ navigation }) => {
 
     if (pickerResult.cancelled === true) {
       return;
+    } else {
+      console.log(pickerResult.uri);
+      setSelectedImage({ localUri: pickerResult.uri });
+      onChangePengaduan(pickerResult.uri,'buktiPembelian')
     }
-
-    setSelectedImage({ localUri: pickerResult.uri });
   };
 
-  if (selectedImage !== null) {
-    return (
-      <View style={styles.container}>
-        <Image
-          source={{ uri: selectedImage.localUri }}
-          style={styles.thumbnail}
-        />
-      </View>
-    );
-  }
+  // if (selectedImage !== null) {
+  //   return (
+  //     <View style={styles.container}>
+  //       <Image
+  //         source={{ uri: selectedImage.localUri }}
+  //         style={styles.thumbnail}
+  //       />
+  //     </View>
+  //   );
+  // }
 
   const showMode = () => {
     setShow(true);
@@ -173,291 +191,306 @@ const Pengaduan = ({ navigation }) => {
     navigation.dispatch(StackActions.replace('Navilogin', { screen: 'Status' }));
   };
 
-  return isSuccess != true ? (
-    isLoading == false ? (
-      <SafeAreaView style={{ flex: 1, marginLeft: 10 }}>
-        <FocusStatusBar background={COLORS.gray} />
-        <View style={styles.headers}>
-          <Text
-            style={{
-              textAlign: 'center',
-              fontSize: SIZES.extraLarge,
-              fontFamily: FONTS.medium,
-            }}>
-            Pengaduan
-          </Text>
-        </View>
-        <ScrollView>
-          <Text
-            style={{
-              fontSize: SIZES.medium,
-              fontFamily: FONTS.regular,
-              textAlign: 'center',
-              marginTop: 10,
-            }}>
-            IDENTITAS KONSUMEN
-          </Text>
-          <FormPengaduan placeholder="nama" value={PengaduanReducer.formPengaduan.nama} onChangeText={(value) => onChangePengaduan(value, 'nama')} />
-          <View style={styles.pickerStyle}>
-            <Picker
-              selectedValue={PengaduanReducer.formPengaduan.jenisKelamin}
-              onValueChange={(value) => onChangePengaduan(value, 'jenisKelamin')}
+  return (
+  <SafeAreaView style={{ flex: 1, marginLeft: 10 }}>
+    <FocusStatusBar background={COLORS.gray} />
+    <View style={styles.headers}>
+      <Text
+        style={{
+          textAlign: 'center',
+          fontSize: SIZES.extraLarge,
+          fontFamily: FONTS.medium,
+        }}>
+        Pengaduan
+      </Text>
+    </View>
+    {checklogin() == true ? (
+      isSuccess != true ? (
+        isLoading == false ? (
+          <View style={{ flex: 1 }}>
+            <ScrollView>
+              <Text
+                style={{
+                  fontSize: SIZES.medium,
+                  fontFamily: FONTS.regular,
+                  textAlign: 'center',
+                  marginTop: 10,
+                }}>
+                IDENTITAS KONSUMEN
+              </Text>
+              <FormPengaduan placeholder="nama" value={PengaduanReducer.formPengaduan.nama} onChangeText={(value) => onChangePengaduan(value, 'nama')} />
+              <View style={styles.pickerStyle}>
+                <Picker
+                  selectedValue={PengaduanReducer.formPengaduan.jenisKelamin}
+                  onValueChange={(value) => onChangePengaduan(value, 'jenisKelamin')}
+                  style={{
+                    color: '#000',
+                  }}>
+                  <Picker.Item label="Pilih Gender" style={styles.gender} />
+                  <Picker.Item label="pria" value="pria" style={styles.gender} />
+                  <Picker.Item label="wanita" value="wanita" style={styles.gender} />
+                </Picker>
+              </View>
+              <Text
+                style={{
+                  fontSize: SIZES.medium,
+                  fontFamily: FONTS.regular,
+                }}>
+                Tanggal Lahir
+              </Text>
+              <View style={styles.date}>
+                <Text
+                  style={{
+                    fontSize: SIZES.medium,
+                    fontFamily: FONTS.regular,
+                  }}>
+                  {textDate}
+                </Text>
+                <TouchableOpacity onPress={() => showMode()}>
+                  <Fontisto name="date" size={24} color="black" />
+                </TouchableOpacity>
+                {show && <DateTimePicker value={date} mode={mode} display="default" onChange={onChange} />}
+              </View>
+    
+              <FormPengaduan placeholder="NIK" keyboardType="numeric" value={PengaduanReducer.formPengaduan.noIdentitas} onChangeText={(value) => onChangePengaduan(value, 'noIdentitas')} />
+              <FormPengaduan placeholder="Telphone / hp" keyboardType="numeric" value={PengaduanReducer.formPengaduan.telepon} onChangeText={(value) => onChangePengaduan(value, 'telepon')} />
+              <FormPengaduan placeholder="Email" value={PengaduanReducer.formPengaduan.email} onChangeText={(value) => onChangePengaduan(value, 'email')} />
+              <FormPengaduan placeholder="Alamat" height={100} value={PengaduanReducer.formPengaduan.alamat} onChangeText={(value) => onChangePengaduan(value, 'alamat')} />
+              <View style={{ height: 30 }} />
+              <FormPengaduan placeholder="Provinsi" value={PengaduanReducer.formPengaduan.provinsi} onChangeText={(value) => onChangePengaduan(value, 'provinsi')} />
+              <FormPengaduan placeholder="Kota / Kabupaten" value={PengaduanReducer.formPengaduan.kotaKabupaten} onChangeText={(value) => onChangePengaduan(value, 'kotaKabupaten')} />
+              <FormPengaduan placeholder="Kode Pos" keyboardType="numeric" value={PengaduanReducer.formPengaduan.kodePos} onChangeText={(value) => onChangePengaduan(value, 'kodePos')} />
+              <View style={{ height: 20 }} />
+              <Text
+                style={{
+                  fontSize: SIZES.medium,
+                  fontFamily: FONTS.regular,
+                  textAlign: 'center',
+                }}>
+                IDENTITAS PELAKU USAHA
+              </Text>
+    
+              <FormPengaduan placeholder="Alamat" height={100} value={PengaduanReducer.formPengaduan.alamatTempatBarangJasa} onChangeText={(value) => onChangePengaduan(value, 'alamatTempatBarangJasa')} />
+              <View style={{ height: 30 }} />
+              <FormPengaduan placeholder="Telphone / hp" keyboardType="numeric" value={PengaduanReducer.formPengaduan.teleponPelakuUsaha} onChangeText={(value) => onChangePengaduan(value, 'teleponPelakuUsaha')} />
+              <FormPengaduan placeholder="Provinsi" value={PengaduanReducer.formPengaduan.provinsiPelakuUsaha} onChangeText={(value) => onChangePengaduan(value, 'provinsiPelakuUsaha')} />
+              <FormPengaduan placeholder="Kota / Kabupaten" value={PengaduanReducer.formPengaduan.kotaKabupatenPelakuUsaha} onChangeText={(value) => onChangePengaduan(value, 'kotaKabupatenPelakuUsaha')} />
+              <FormPengaduan placeholder="Kode Pos" keyboardType="numeric" value={PengaduanReducer.formPengaduan.kodePosPelakuUsaha} onChangeText={(value) => onChangePengaduan(value, 'kodePosPelakuUsaha')} />
+              <Text
+                style={{
+                  fontSize: SIZES.medium,
+                  fontFamily: FONTS.regular,
+                  textAlign: 'center',
+                }}>
+                TENTANG PENGADUAN
+              </Text>
+    
+              <Text
+                style={{
+                  fontSize: SIZES.medium,
+                  fontFamily: FONTS.regular,
+                }}>
+                Jenis Produk
+              </Text>
+              <View style={styles.pickerStyle}>
+                <Picker
+                  selectedValue={PengaduanReducer.formPengaduan.jenisProduk}
+                  onValueChange={(value) => onChangePengaduan(value, 'jenisProduk')}
+                  style={{
+                    color: '#000',
+                  }}>
+                  <Picker.Item label="Pilih Jenis" value="Pilih Jenis" style={styles.gender} />
+                  <Picker.Item label="Jasa" value="Jasa" style={styles.gender} />
+                  <Picker.Item label="Barang" value="Barang" style={styles.gender} />
+                </Picker>
+              </View>
+              {jasaorbarang != null ? (
+                <View style={{flex: 1}}>
+                  <Text>Kategori Produk {jasaorbarang}</Text>
+                  {jasaorbarang === 'Jasa' ? (
+                  <View style={styles.pickerStyle}>
+                    <Picker
+                      selectedValue={PengaduanReducer.formPengaduan.detailProduk}
+                      onValueChange={(value) => onChangePengaduan(value, 'detailProduk')}
+                      style={{
+                        color: '#000',
+                      }}>
+                      <Picker.Item label="PLN" value="PLN" style={styles.gender} />
+                      <Picker.Item label="PDAM" value="PDAM" style={styles.gender} />
+                      <Picker.Item label="Telkomunikasi" value="Telkomunikasi" style={styles.gender} />
+                      <Picker.Item label="Transportasi udara, darat, laut" value="Transportasi udara, darat, laut" style={styles.gender} />
+                      <Picker.Item label="Jasa Pengiriman" value="Jasa Pengiriman" style={styles.gender} />
+                      <Picker.Item label="Layanan Kesehatan" value="Layanan Kesehatan" style={styles.gender} />
+                      <Picker.Item label="Perparkiraan" value="Perparkiraan" style={styles.gender} />
+                      <Picker.Item label="lain - lain" value="lain - lain" style={styles.gender} />
+                    </Picker>
+                  </View>
+                ) : (
+                  jasaorbarang === 'Barang' ? (
+                    <View style={styles.pickerStyle}>
+                      <Picker
+                        selectedValue={PengaduanReducer.formPengaduan.detailProduk}
+                        onValueChange={(value) => onChangePengaduan(value, 'detailProduk')}
+                        style={{
+                          color: '#000',
+                        }}>
+                        <Picker.Item label="Pilih Detail Produk" style={styles.gender} />
+                        <Picker.Item label="Elektronika dan Telematika" value="Elektronika dan Telematika" style={styles.gender} />
+                        <Picker.Item label="Perumahan / Property" value="Perumahan / Property" style={styles.gender} />
+                        <Picker.Item label="Bahan bakar  / gas" value="Bahan bakar  / gas" style={styles.gender} />
+                        <Picker.Item label="Tekstil dan produk tekstil" value="Tekstil dan produk tekstil" style={styles.gender} />
+                        <Picker.Item label="lain - lain" value="lain - lain" style={styles.gender} />
+                      </Picker>
+                    </View>
+                  ) : (
+                    null
+                  )
+                )}
+                </View>
+              ):(null)}
+              <FormPengaduan placeholder="Merk Dagang" value={PengaduanReducer.formPengaduan.merkDagang} onChangeText={(value) => onChangePengaduan(value, 'merkDagang')} />
+              <FormPengaduan placeholder="Type" value={PengaduanReducer.formPengaduan.type} onChangeText={(value) => onChangePengaduan(value, 'type')} />
+              <Text>Jenis Pengaduan</Text>
+              <View style={styles.pickerStyle}>
+                <Picker
+                  selectedValue={PengaduanReducer.formPengaduan.jenisPengaduan}
+                  onValueChange={(value) => onChangePengaduan(value, 'jenisPengaduan')}
+                  style={{
+                    color: '#000',
+                  }}>
+                  <Picker.Item label="Pilih Jenis" style={styles.gender} />
+                  <Picker.Item label="Standar" value="standar" style={styles.gender} />
+                  <Picker.Item label="Label" value="label" style={styles.gender} />
+                  <Picker.Item label="Pentunjuk Penggunaan" value="pentunjukPenggunaan" style={styles.gender} />
+                  <Picker.Item label="Pelayanan Purna Jual" value="pelayananPurnaJual" style={styles.gender} />
+                  <Picker.Item label="Cara Menjual" value="caraMenjual" style={styles.gender} />
+                  <Picker.Item label="Pengiklanan /  Promosi" value="pengiklanan" style={styles.gender} />
+                  <Picker.Item label="Klausula Baku" value="klausulaBaku" style={styles.gender} />
+                  <Picker.Item label="lain - lain" value="lainLain" style={styles.gender} />
+                </Picker>
+              </View>
+              <Text
+                style={{
+                  fontSize: SIZES.medium,
+                  fontFamily: FONTS.regular,
+                }}>
+                Tanggal Kejadian
+              </Text>
+              <View style={styles.date}>
+                <Text
+                  style={{
+                    fontSize: SIZES.medium,
+                    fontFamily: FONTS.regular,
+                  }}>
+                  {textDate2}
+                </Text>
+                <TouchableOpacity onPress={() => showMode2()}>
+                  <Fontisto name="date" size={24} color="black" />
+                </TouchableOpacity>
+                {show2 && <DateTimePicker value={date2} mode={mode} display="default" onChange={onChange2} />}
+              </View>
+              <FormPengaduan placeholder="Lokasi Kejadian" value={PengaduanReducer.formPengaduan.tempatLokasiKejadian} onChangeText={(value) => onChangePengaduan(value, 'tempatLokasiKejadian')} />
+    
+              <Text
+                style={{
+                  fontSize: SIZES.medium,
+                  fontFamily: FONTS.regular,
+                  marginBottom: 10,
+                }}>
+                Bukti - Bukti
+              </Text>
+              <TouchableOpacity onPress={openImagePickerAsync} style={styles.button}>
+                <Text style={styles.buttonText}>Pick a photo</Text>
+              </TouchableOpacity>
+    
+              <FormPengaduan placeholder="Bukti Pembelian" value={PengaduanReducer.formPengaduan.buktiPembelian} onChangeText={(value) => onChangePengaduan(value, 'buktiPembelian')} />
+              <FormPengaduan placeholder="Saksi" value={PengaduanReducer.formPengaduan.saksi == undefined ? 'Tidak ada saksi' : PengaduanReducer.formPengaduan.saksi} onChangeText={(value) => onChangePengaduan(value, 'saksi')} />
+              <Text
+                style={{
+                  fontSize: SIZES.medium,
+                  fontFamily: FONTS.regular,
+                  color: COLORS.secondary2,
+                  marginTop: -10,
+                  marginBottom: 10,
+                }}>
+                *Saksi Jika ada
+              </Text>
+    
+              <View style={styles.pickerStyle}>
+                <Picker
+                  selectedValue={PengaduanReducer.formPengaduan.kerugian}
+                  onValueChange={(value) => onChangePengaduan(value, 'kerugian')}
+                  style={{
+                    color: '#000',
+                  }}>
+                  <Picker.Item label="Pilih Jenis Kerugian" style={styles.gender} />
+                  <Picker.Item label="Material" value="kerugianMaterial" style={styles.gender} />
+                  <Picker.Item label="Fisik" value="kerugianFisik" style={styles.gender} />
+                  <Picker.Item label="Psikis" value="jenisTuntutan" style={styles.gender} />
+                </Picker>
+              </View>
+              <FormPengaduan placeholder="Jelaskan dari Kerugian" value={PengaduanReducer.formPengaduan.inputKerugian} onChangeText={(value) => onChangePengaduan(value, 'inputKerugian')} />
+              <Text
+                style={{
+                  fontSize: SIZES.medium,
+                  fontFamily: FONTS.regular,
+                  color: COLORS.secondary2,
+                }}>
+                JENIS TUNTUTAN
+              </Text>
+    
+              <View style={styles.pickerStyle}>
+                <Picker
+                  selectedValue={PengaduanReducer.formPengaduan.jenisTuntutan}
+                  onValueChange={(value) => onChangePengaduan(value, 'jenisTuntutan')}
+                  style={{
+                    color: '#000',
+                  }}>
+                  <Picker.Item label="Pilih Jenis" style={styles.gender} />
+                  <Picker.Item label="Pengembalian Uang" value="pengembalianUang" style={styles.gender} />
+                  <Picker.Item label="Penggantian Barang dan / atau Jasa yang sejenis atau setara nilainya" value="PenggantianJasaAtauBarang" style={styles.gender} />
+                  <Picker.Item label="Perawatan Kesehatan" value="perawatanKesehatan" style={styles.gender} />
+                  <Picker.Item label="Pemberian Santunan" value="pemberianSantunan" style={styles.gender} />
+                  <Picker.Item label="Lain-lain" value="lainLain" style={styles.gender} />
+                </Picker>
+              </View>
+              <FormPengaduan placeholder="KRONOLOGIS PENGADUAN" height={100} value={PengaduanReducer.formPengaduan.kronologisPengaduan} onChangeText={(value) => onChangePengaduan(value, 'kronologisPengaduan')} />
+              <View
+                style={{
+                  height: 30,
+                }}
+              />
+            </ScrollView>
+    
+            <View
               style={{
-                color: '#000',
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginBottom: 10,
+                marginTop: 10,
               }}>
-              <Picker.Item label="Pilih Gender" style={styles.gender} />
-              <Picker.Item label="pria" value="pria" style={styles.gender} />
-              <Picker.Item label="wanita" value="wanita" style={styles.gender} />
-            </Picker>
+              <RectButton title="Submit" handlePress={sendData} backgroundColor={COLORS.primary2} />
+            </View>
           </View>
-          <Text
-            style={{
-              fontSize: SIZES.medium,
-              fontFamily: FONTS.regular,
-            }}>
-            Tanggal Lahir
-          </Text>
-          <View style={styles.date}>
+        ) : (
+          <View style={{ flex: 1 }}>
             <Text
               style={{
-                fontSize: SIZES.medium,
-                fontFamily: FONTS.regular,
+                textAlign: 'center',
+                fontWeight: 'bold',
               }}>
-              {textDate}
+              Loading...
             </Text>
-            <TouchableOpacity onPress={() => showMode()}>
-              <Fontisto name="date" size={24} color="black" />
-            </TouchableOpacity>
-            {show && <DateTimePicker value={date} mode={mode} display="default" onChange={onChange} />}
           </View>
-
-          <FormPengaduan placeholder="NIK" keyboardType="numeric" value={PengaduanReducer.formPengaduan.noIdentitas} onChangeText={(value) => onChangePengaduan(value, 'noIdentitas')} />
-          <FormPengaduan placeholder="Telphone / hp" keyboardType="numeric" value={PengaduanReducer.formPengaduan.telepon} onChangeText={(value) => onChangePengaduan(value, 'telepon')} />
-          <FormPengaduan placeholder="Email" value={PengaduanReducer.formPengaduan.email} onChangeText={(value) => onChangePengaduan(value, 'email')} />
-          <FormPengaduan placeholder="Alamat" height={100} value={PengaduanReducer.formPengaduan.alamat} onChangeText={(value) => onChangePengaduan(value, 'alamat')} />
-          <View style={{ height: 30 }} />
-          <FormPengaduan placeholder="Provinsi" value={PengaduanReducer.formPengaduan.provinsi} onChangeText={(value) => onChangePengaduan(value, 'provinsi')} />
-          <FormPengaduan placeholder="Kota / Kabupaten" value={PengaduanReducer.formPengaduan.kotaKabupaten} onChangeText={(value) => onChangePengaduan(value, 'kotaKabupaten')} />
-          <FormPengaduan placeholder="Kode Pos" keyboardType="numeric" value={PengaduanReducer.formPengaduan.kodePos} onChangeText={(value) => onChangePengaduan(value, 'kodePos')} />
-          <View style={{ height: 20 }} />
-          <Text
-            style={{
-              fontSize: SIZES.medium,
-              fontFamily: FONTS.regular,
-              textAlign: 'center',
-            }}>
-            IDENTITAS PELAKU USAHA
-          </Text>
-
-          <FormPengaduan placeholder="Alamat" height={100} value={PengaduanReducer.formPengaduan.alamatTempatBarangJasa} onChangeText={(value) => onChangePengaduan(value, 'alamatTempatBarangJasa')} />
-          <View style={{ height: 30 }} />
-          <FormPengaduan placeholder="Telphone / hp" keyboardType="numeric" value={PengaduanReducer.formPengaduan.teleponPelakuUsaha} onChangeText={(value) => onChangePengaduan(value, 'teleponPelakuUsaha')} />
-          <FormPengaduan placeholder="Provinsi" value={PengaduanReducer.formPengaduan.provinsiPelakuUsaha} onChangeText={(value) => onChangePengaduan(value, 'provinsiPelakuUsaha')} />
-          <FormPengaduan placeholder="Kota / Kabupaten" value={PengaduanReducer.formPengaduan.kotaKabupatenPelakuUsaha} onChangeText={(value) => onChangePengaduan(value, 'kotaKabupatenPelakuUsaha')} />
-          <FormPengaduan placeholder="Kode Pos" keyboardType="numeric" value={PengaduanReducer.formPengaduan.kodePosPelakuUsaha} onChangeText={(value) => onChangePengaduan(value, 'kodePosPelakuUsaha')} />
-          <Text
-            style={{
-              fontSize: SIZES.medium,
-              fontFamily: FONTS.regular,
-              textAlign: 'center',
-            }}>
-            TENTANG PENGADUAN
-          </Text>
-
-          <Text
-            style={{
-              fontSize: SIZES.medium,
-              fontFamily: FONTS.regular,
-            }}>
-            Jenis Produk
-          </Text>
-          <View style={styles.pickerStyle}>
-            <Picker
-              selectedValue={PengaduanReducer.formPengaduan.jenisProduk}
-              onValueChange={(value) => onChangePengaduan(value, 'jenisProduk')}
-              style={{
-                color: '#000',
-              }}>
-              <Picker.Item label="Pilih Jenis" style={styles.gender} />
-              <Picker.Item label="Jasa" value="Jasa" style={styles.gender} />
-              <Picker.Item label="Barang" value="Barang" style={styles.gender} />
-            </Picker>
-          </View>
-          <Text>Kategori Produk</Text>
-          <View style={styles.pickerStyle}>
-            <Picker
-              selectedValue={PengaduanReducer.formPengaduan.detailProduk}
-              onValueChange={(value) => onChangePengaduan(value, 'detailProduk')}
-              style={{
-                color: '#000',
-              }}>
-              {/* barang */}
-              <Picker.Item label="Pilih Detail Produk" style={styles.gender} />
-              <Picker.Item label="Elektronika dan Telematika" value="Barang" style={styles.gender} />
-              <Picker.Item label="Perumahan / Property" value="Barang" style={styles.gender} />
-              <Picker.Item label="Bahan bakar  / gas" value="Barang" style={styles.gender} />
-              <Picker.Item label="Tekstil dan produk tekstil" value="Barang" style={styles.gender} />
-              <Picker.Item label="lain - lain" value="Barang" style={styles.gender} />
-              {/* jasa */}
-              <Picker.Item label="PLN" value="Jasa" style={styles.gender} />
-              <Picker.Item label="PDAM" value="Jasa" style={styles.gender} />
-              <Picker.Item label="Telkomunikasi" value="Jasa" style={styles.gender} />
-              <Picker.Item label="Transportasi udara, darat, laut" value="Jasa" style={styles.gender} />
-              <Picker.Item label="Jasa Pengiriman" value="Jasa" style={styles.gender} />
-              <Picker.Item label="Layanan Kesehatan" value="Jasa" style={styles.gender} />
-              <Picker.Item label="Perparkiraan" value="Jasa" style={styles.gender} />
-              <Picker.Item label="lain - lain" value="Jasa" style={styles.gender} />
-            </Picker>
-          </View>
-          <FormPengaduan placeholder="Merk Dagang" value={PengaduanReducer.formPengaduan.merkDagang} onChangeText={(value) => onChangePengaduan(value, 'merkDagang')} />
-          <FormPengaduan placeholder="Type" value={PengaduanReducer.formPengaduan.type} onChangeText={(value) => onChangePengaduan(value, 'type')} />
-          <Text>Jenis Pengaduan</Text>
-          <View style={styles.pickerStyle}>
-            <Picker
-              selectedValue={PengaduanReducer.formPengaduan.jenisPengaduan}
-              onValueChange={(value) => onChangePengaduan(value, 'jenisPengaduan')}
-              style={{
-                color: '#000',
-              }}>
-              <Picker.Item label="Pilih Jenis" style={styles.gender} />
-              <Picker.Item label="Standar" value="standar" style={styles.gender} />
-              <Picker.Item label="Label" value="label" style={styles.gender} />
-              <Picker.Item label="Pentunjuk Penggunaan" value="pentunjukPenggunaan" style={styles.gender} />
-              <Picker.Item label="Pelayanan Purna Jual" value="pelayananPurnaJual" style={styles.gender} />
-              <Picker.Item label="Cara Menjual" value="caraMenjual" style={styles.gender} />
-              <Picker.Item label="Pengiklanan /  Promosi" value="pengiklanan" style={styles.gender} />
-              <Picker.Item label="Klausula Baku" value="klausulaBaku" style={styles.gender} />
-              <Picker.Item label="lain - lain" value="lainLain" style={styles.gender} />
-            </Picker>
-          </View>
-          <Text
-            style={{
-              fontSize: SIZES.medium,
-              fontFamily: FONTS.regular,
-            }}>
-            Tanggal Kejadian
-          </Text>
-          <View style={styles.date}>
-            <Text
-              style={{
-                fontSize: SIZES.medium,
-                fontFamily: FONTS.regular,
-              }}>
-              {textDate2}
-            </Text>
-            <TouchableOpacity onPress={() => showMode2()}>
-              <Fontisto name="date" size={24} color="black" />
-            </TouchableOpacity>
-            {show2 && <DateTimePicker value={date2} mode={mode} display="default" onChange={onChange2} />}
-          </View>
-          <FormPengaduan placeholder="Lokasi Kejadian" value={PengaduanReducer.formPengaduan.tempatLokasiKejadian} onChangeText={(value) => onChangePengaduan(value, 'tempatLokasiKejadian')} />
-
-          <Text
-            style={{
-              fontSize: SIZES.medium,
-              fontFamily: FONTS.regular,
-              marginBottom: 10,
-            }}>
-            Bukti - Bukti
-          </Text>
-          <TouchableOpacity onPress={openImagePickerAsync} style={styles.button}>
-            <Text style={styles.buttonText}>Pick a photo</Text>
-          </TouchableOpacity>
-
-          <FormPengaduan placeholder="Bukti Pembelian" value={PengaduanReducer.formPengaduan.buktiPembelian} onChangeText={(value) => onChangePengaduan(value, 'buktiPembelian')} />
-          <FormPengaduan placeholder="Saksi" value={PengaduanReducer.formPengaduan.saksi == undefined ? 'Tidak ada saksi' : PengaduanReducer.formPengaduan.saksi} onChangeText={(value) => onChangePengaduan(value, 'saksi')} />
-          <Text
-            style={{
-              fontSize: SIZES.medium,
-              fontFamily: FONTS.regular,
-              color: COLORS.secondary2,
-              marginTop: -10,
-              marginBottom: 10,
-            }}>
-            *Saksi Jika ada
-          </Text>
-
-          <View style={styles.pickerStyle}>
-            <Picker
-              selectedValue={PengaduanReducer.formPengaduan.kerugian}
-              onValueChange={(value) => onChangePengaduan(value, 'kerugian')}
-              style={{
-                color: '#000',
-              }}>
-              <Picker.Item label="Pilih Jenis Kerugian" style={styles.gender} />
-              <Picker.Item label="Material" value="kerugianMaterial" style={styles.gender} />
-              <Picker.Item label="Fisik" value="kerugianFisik" style={styles.gender} />
-              <Picker.Item label="Psikis" value="jenisTuntutan" style={styles.gender} />
-            </Picker>
-          </View>
-          <FormPengaduan placeholder="Jelaskan dari Kerugian" value={PengaduanReducer.formPengaduan.inputKerugian} onChangeText={(value) => onChangePengaduan(value, 'inputKerugian')} />
-          <Text
-            style={{
-              fontSize: SIZES.medium,
-              fontFamily: FONTS.regular,
-              color: COLORS.secondary2,
-            }}>
-            JENIS TUNTUTAN
-          </Text>
-
-          <View style={styles.pickerStyle}>
-            <Picker
-              selectedValue={PengaduanReducer.formPengaduan.jenisTuntutan}
-              onValueChange={(value) => onChangePengaduan(value, 'jenisTuntutan')}
-              style={{
-                color: '#000',
-              }}>
-              <Picker.Item label="Pilih Jenis" style={styles.gender} />
-              <Picker.Item label="Pengembalian Uang" value="pengembalianUang" style={styles.gender} />
-              <Picker.Item label="Penggantian Barang dan / atau Jasa yang sejenis atau setara nilainya" value="PenggantianJasaAtauBarang" style={styles.gender} />
-              <Picker.Item label="Perawatan Kesehatan" value="perawatanKesehatan" style={styles.gender} />
-              <Picker.Item label="Pemberian Santunan" value="pemberianSantunan" style={styles.gender} />
-              <Picker.Item label="Lain-lain" value="lainLain" style={styles.gender} />
-            </Picker>
-          </View>
-          <FormPengaduan placeholder="KRONOLOGIS PENGADUAN" height={100} value={PengaduanReducer.formPengaduan.kronologisPengaduan} onChangeText={(value) => onChangePengaduan(value, 'kronologisPengaduan')} />
-          <View
-            style={{
-              height: 30,
-            }}
-          />
-        </ScrollView>
-
-        <View
-          style={{
-            justifyContent: 'center',
-            alignItems: 'center',
-            marginBottom: 10,
-            marginTop: 10,
-          }}>
-          <RectButton title="Submit" handlePress={sendData} backgroundColor={COLORS.primary2} />
-        </View>
-      </SafeAreaView>
-    ) : (
-      <SafeAreaView style={{ flex: 1, marginLeft: 10 }}>
-        <FocusStatusBar background={COLORS.gray} />
-        <View style={styles.headers}>
-          <Text
-            style={{
-              textAlign: 'center',
-              fontSize: SIZES.extraLarge,
-              fontFamily: FONTS.medium,
-            }}>
-            Pengaduan
-          </Text>
-        </View>
-        <Text
-          style={{
-            textAlign: 'center',
-            fontWeight: 'bold',
-          }}>
-          Loading...
-        </Text>
-      </SafeAreaView>
-    )
-  ) : (
-    <Success navigatehome={navigatehome} navigatestatus={navigatestatus} />
-  );
+        )
+      ) : (
+        <Success navigatehome={navigatehome} navigatestatus={navigatestatus} />
+      )
+    ):(
+      // <Text>Tidak ada akses</Text>
+      null
+    )}
+  </SafeAreaView>)
 };
 
 const Success = ({ navigatehome, navigatestatus }) => {
