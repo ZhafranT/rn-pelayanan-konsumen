@@ -20,6 +20,7 @@ import profile from '../assets/icons/profile.png';
 import homeWhite from '../assets/icons/home-white.png';
 import peopleWhite from '../assets/icons/people-white.png';
 import reportWhite from '../assets/icons/report-white.png';
+import peopleProfile from '../assets/icons/people-Profile.jpg';
 
 // asset berita foto
 import foto1 from '../assets/pic-news/foto-1.jpg';
@@ -52,4 +53,5 @@ export default {
   reportWhite,
   profilePic,
   menuauth,
+  peopleProfile,
 };

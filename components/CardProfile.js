@@ -23,7 +23,7 @@ const CardProfile = ({ username, numbersellphone }) => {
           marginLeft: 18,
           top: 20,
         }}>
-        <Image source={assets.profilePic} style={styles.imgprofile} />
+        <Image source={assets.peopleProfile} style={styles.imgprofile} />
       </View>
       <View
         style={{

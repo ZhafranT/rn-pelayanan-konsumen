@@ -58,7 +58,7 @@ const initialStatePengaduan = {
     provinsi: '',
     kotaKabupaten: '',
     kodePos: '',
-    alamatPelakuUsah: '',
+    alamatTempatBarangJasa: '',
     teleponPelakuUsaha: '',
     provinsiPelakuUsaha: '',
     kotaKabupatenPelakuUsaha: '',
@@ -70,12 +70,12 @@ const initialStatePengaduan = {
     jenisPengaduan: '',
     waktuKejadianDitemukan: '',
     tempatLokasiKejadian: '',
-    bukti: '',
+    buktiPembelian: '',
     saksi: '',
     kerugian: '',
     inputKerugian: '',
     jenisTuntutan: '',
-    kronologiPengaduan: '',
+    kronologisPengaduan: '',
   },
 };
 
