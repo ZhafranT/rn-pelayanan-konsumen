@@ -84,7 +84,9 @@ const Register = () => {
               Object.keys(mainerrmmsg)[x].toLowerCase().includes('nik') && (
                 <View key={x}>
                   {Object.values(mainerrmmsg)[x].map((r) => (
-                    <Text key={r}>{r}</Text>
+                    <Text key={r} style={styles.texterr}>
+                      {r}
+                    </Text>
                   ))}
                 </View>
               )
@@ -96,7 +98,9 @@ const Register = () => {
               Object.keys(mainerrmmsg)[x].toLowerCase().includes('nama') && (
                 <View key={x}>
                   {Object.values(mainerrmmsg)[x].map((r) => (
-                    <Text key={r}>{r}</Text>
+                    <Text key={r} style={styles.texterr}>
+                      {r}
+                    </Text>
                   ))}
                 </View>
               )
@@ -108,7 +112,9 @@ const Register = () => {
               Object.keys(mainerrmmsg)[x].toLowerCase().includes('email') && (
                 <View key={x}>
                   {Object.values(mainerrmmsg)[x].map((r) => (
-                    <Text key={r}>{r}</Text>
+                    <Text key={r} style={styles.texterr}>
+                      {r}
+                    </Text>
                   ))}
                 </View>
               )
@@ -120,7 +126,9 @@ const Register = () => {
               Object.keys(mainerrmmsg)[x].toLowerCase().includes('alamat') && (
                 <View key={x}>
                   {Object.values(mainerrmmsg)[x].map((r) => (
-                    <Text key={r}>{r}</Text>
+                    <Text key={r} style={styles.texterr}>
+                      {r}
+                    </Text>
                   ))}
                 </View>
               )
@@ -132,7 +140,9 @@ const Register = () => {
               Object.keys(mainerrmmsg)[x].toLowerCase().includes('notelp') && (
                 <View key={x}>
                   {Object.values(mainerrmmsg)[x].map((r) => (
-                    <Text key={r}>{r}</Text>
+                    <Text key={r} style={styles.texterr}>
+                      {r}
+                    </Text>
                   ))}
                 </View>
               )
@@ -144,7 +154,9 @@ const Register = () => {
               Object.keys(mainerrmmsg)[x].toLowerCase().includes('gender') && (
                 <View key={x}>
                   {Object.values(mainerrmmsg)[x].map((r) => (
-                    <Text key={r}>{r}</Text>
+                    <Text key={r} style={styles.texterr}>
+                      {r}
+                    </Text>
                   ))}
                 </View>
               )
@@ -174,7 +186,9 @@ const Register = () => {
               Object.keys(mainerrmmsg)[x].toLowerCase().includes('password') && (
                 <View key={x}>
                   {Object.values(mainerrmmsg)[x].map((r) => (
-                    <Text key={r}>{r}</Text>
+                    <Text key={r} style={styles.texterr}>
+                      {r}
+                    </Text>
                   ))}
                 </View>
               )
@@ -211,6 +225,11 @@ const styles = StyleSheet.create({
     fontSize: SIZES.medium,
     fontFamily: FONTS.regular,
     textAlign: 'center',
+  },
+  texterr: {
+    fontSize: SIZES.small,
+    fontFamily: FONTS.regular,
+    color: COLORS.secondary2,
   },
 });
 

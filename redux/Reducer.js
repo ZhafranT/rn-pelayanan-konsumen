@@ -76,6 +76,9 @@ const initialStatePengaduan = {
     inputKerugian: '',
     jenisTuntutan: '',
     kronologisPengaduan: '',
+    kerugianMaterial: '',
+    kerugianFisik: '',
+    kerugianPsikis: '',
   },
 };
 
