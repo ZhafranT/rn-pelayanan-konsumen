@@ -17,6 +17,7 @@ const Register = () => {
   const navigation = useNavigation();
   const [mainerrmmsg, setmainerrmmsg] = useState(null);
   const [isLoading, setisLoading] = useState(false);
+  const [isSuccess, setisSuccess] = useState(false);
 
   useEffect(() => {}, [mainerrmmsg, isLoading]);
 
@@ -37,13 +38,14 @@ const Register = () => {
     };
     console.log(body);
     setisLoading(true);
+
     const { data, message } = await registernewdata(body);
     if (message == 200) {
       // handle 200
       setisLoading(false);
-      setTimeout(() => {
-        navigation.navigate('Login');
-      }, 2000);
+      // setTimeout(() => {
+      //   navigation.navigate('Spalsh');
+      // }, 2000);
     } else if (message == 400) {
       // handle 400
       setisLoading(false);
@@ -202,7 +204,8 @@ const Register = () => {
           alignItems: 'center',
           marginBottom: 10,
         }}>
-        {isLoading == true ? <RectButton title="Sukses" backgroundColor={'gray'} /> : <RectButton title="Daftar" handlePress={sendData} backgroundColor={COLORS.primary2} />}
+        {isLoading == true ? <RectButton title="loading..." backgroundColor={'gray'} /> : <RectButton title="Daftar" handlePress={sendData} backgroundColor={COLORS.primary2} />}
+        
       </View>
     </SafeAreaView>
   );

@@ -6,6 +6,7 @@ import { assets, COLORS, SHADOWS, SIZES, FONTS, CarouselData } from '../constant
 import { FocusStatusBar, IconNews, IconPengaduan, IconUupk, Carousel, IconNotif, IconHelp } from '../components';
 import { useNavigation } from '@react-navigation/native';
 
+
 const Home = () => {
   const navigation = useNavigation();
 
@@ -21,6 +22,7 @@ const Home = () => {
             alignItems: 'center',
             marginRight: 15,
           }}>
+          <IconNotif handlePress={() => navigation.navigate('Notif')} />
           <IconHelp handlePress={() => navigation.navigate('Help')} />
         </View>
       </View>

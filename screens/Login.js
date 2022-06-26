@@ -57,7 +57,7 @@ const Login = ({ navigation }) => {
         } else if (res == 400) {
           // setErrmsg(data);
           console.log('Login | 400', data);
-          setErrmsg(data.error);
+          setErrmsg(data.error)
         } else {
           console.log('Login | 500', data);
         }
@@ -71,7 +71,7 @@ const Login = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <FocusStatusBar barStyle="light-content" background={COLORS.gray} />
-      <Toast style={{ color: COLORS.white }} />
+      <Toast />
       <IconBack handlePress={() => navigation.navigate('Home')} />
       <Image source={assets.logo} style={styles.imageLogo} />
       <Text
@@ -96,15 +96,22 @@ const Login = ({ navigation }) => {
           alignItems: 'center',
           marginTop: 10,
         }}>
-        {errmmsg != null && <Text>{errmmsg}</Text>}
-        <View
-          style={{
-            height: 10,
-          }}
-        />
+          {errmmsg != null && (
+            <Text>{errmmsg}</Text>
+          )}
         <RectButton title="Login" handlePress={sendData} backgroundColor={COLORS.primary2} />
         <RegisHere handlePress={() => navigation.navigate('Register')} />
       </View>
+      {/* {mainerrmmsg != null &&
+        Object.keys(mainerrmmsg).map((i, x) => (
+          <View>
+            <Text>{Object.keys(mainerrmmsg)[x]}</Text>
+            {Object.values(mainerrmmsg)[x].map((r) => (
+              <Text>{r}</Text>
+            ))}
+          </View>
+        ))} */}
+
       <View
         style={{
           height: 100,

@@ -439,11 +439,11 @@ const Pengaduan = ({ navigation }) => {
                       color: '#000',
                     }}>
                     <Picker.Item label="Pilih Jenis" style={styles.gender} />
-                    <Picker.Item label="Pengembalian Uang" value="Pengembalian Uang" style={styles.gender} />
-                    <Picker.Item label="Penggantian Barang dan / atau Jasa yang sejenis atau setara nilainya" value="Penggantian Jasa Atau Barang" style={styles.gender} />
-                    <Picker.Item label="Perawatan Kesehatan" value="Perawatan Kesehatan" style={styles.gender} />
-                    <Picker.Item label="Pemberian Santunan" value="Pemberian Santunan" style={styles.gender} />
-                    <Picker.Item label="Lain-lain" value="Lain - lain" style={styles.gender} />
+                    <Picker.Item label="Pengembalian Uang" value="pengembalianUang" style={styles.gender} />
+                    <Picker.Item label="Penggantian Barang dan / atau Jasa yang sejenis atau setara nilainya" value="PenggantianJasaAtauBarang" style={styles.gender} />
+                    <Picker.Item label="Perawatan Kesehatan" value="perawatanKesehatan" style={styles.gender} />
+                    <Picker.Item label="Pemberian Santunan" value="pemberianSantunan" style={styles.gender} />
+                    <Picker.Item label="Lain-lain" value="lainLain" style={styles.gender} />
                   </Picker>
                 </View>
                 <FormPengaduan placeholder="KRONOLOGIS PENGADUAN" height={100} value={PengaduanReducer.formPengaduan.kronologisPengaduan} onChangeText={(value) => onChangePengaduan(value, 'kronologisPengaduan')} />
