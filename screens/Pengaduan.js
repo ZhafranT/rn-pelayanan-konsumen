@@ -5,6 +5,8 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import * as ImagePicker from 'expo-image-picker';
 import { Fontisto } from '@expo/vector-icons';
 import { CommonActions, StackActions } from '@react-navigation/native';
+// import { launchImageLibrary } from 'react-native-image-picker';
+
 import { FocusStatusBar, FormPengaduan, RectButton } from '../components';
 import { COLORS, SHADOWS, SIZES, FONTS } from '../constants';
 import { useDispatch, useSelector } from 'react-redux';
@@ -27,6 +29,7 @@ const Pengaduan = ({ navigation }) => {
   const [isSuccess, setisSuccess] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [jasaorbarang, setjasaorbarang] = useState(null);
+  const [image, setImage] = useState(null);
 
   useEffect(() => {}, [jasaorbarang]);
 
@@ -51,7 +54,8 @@ const Pengaduan = ({ navigation }) => {
     const dataPengaduan = PengaduanReducer.formPengaduan;
     // console.log('data masuk : ', dataPengaduan);
     const uid = await AsyncStorage.getItem('USER_ID');
-    const sample = {
+
+    const body = {
       user_id: uid,
       alamat: dataPengaduan.alamat,
       // alamatPelakuUsah: dataPengaduan.alamatPelakuUsah,
@@ -87,7 +91,8 @@ const Pengaduan = ({ navigation }) => {
       waktuKejadianDitemukan: moment(new Date(dataPengaduan.waktuKejadianDitemukan)).format('YYYY-MM-DD'),
     };
 
-    const { data, message } = await insertpengaduan(sample);
+    const { data, message } = await insertpengaduan(body);
+
     if (message == 200) {
       // handle 200
       setisLoading(false);
@@ -140,24 +145,37 @@ const Pengaduan = ({ navigation }) => {
     // dispatch(setFormPengaduan(tempDate, fDate));
   };
 
-  // add image
-  const openImagePickerAsync = async () => {
-    let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+  /*  add image   */
 
-    if (permissionResult.granted === false) {
-      alert('Permission to access camera roll is required!');
-      return;
+  const pickImage = async () => {
+    // No permissions request is necessary for launching the image library
+    const images = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      base64: true,
+      aspect: [16, 9],
+      quality: 1,
+    });
+
+    console.log('hasil img', images);
+
+    if (!images.cancelled) {
+      setImage(images.uri);
     }
 
-    let pickerResult = await ImagePicker.launchImageLibraryAsync();
+    // let localUri = Platform.OS === 'android' ? images.uri.replace('file://', '') : images.uri;
+    let imageUri = images ? `data:image/jpg;base64,${images.base64}` : null;
+    let filename = imageUri.split('/').pop();
 
-    if (pickerResult.cancelled === true) {
-      return;
-    } else {
-      console.log(pickerResult.uri);
-      // setSelectedImage({ localUri: pickerResult.uri });
-      onChangePengaduan(pickerResult.uri, 'buktiPembelian');
-    }
+    // console.log('img', 'data:image/jpeg;base64,' + imageUri);
+    let match = /\.(\w+)$/.exec(filename);
+    let type = match ? `image/${match[1]}` : `image`;
+
+    const formData = new FormData();
+    formData.append('photo', { uri: imageUri, name: filename, type });
+
+    onChangePengaduan(formData, 'buktiPembelian');
+
+    console.log('form Data', formData);
   };
 
   const showMode = () => {
@@ -381,9 +399,11 @@ const Pengaduan = ({ navigation }) => {
                   Bukti - Bukti
                 </Text>
 
-                <RectButton title="Pick a Photo" handlePress={openImagePickerAsync} backgroundColor={COLORS.gray} />
+                <RectButton title="Pick a Photo" handlePress={pickImage} backgroundColor={COLORS.gray} />
                 <View style={{ height: 10 }} />
-                <FormPengaduan placeholder="Bukti Pembelian" value={PengaduanReducer.formPengaduan.buktiPembelian} onChangeText={(value) => onChangePengaduan(value, 'buktiPembelian')} />
+                {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
+                <View style={{ height: 10 }} />
+                {/* <FormPengaduan placeholder="Bukti Pembelian" value={PengaduanReducer.formPengaduan.buktiPembelian} onChangeText={(value) => onChangePengaduan(value, 'buktiPembelian')} /> */}
                 <FormPengaduan placeholder="Saksi" value={PengaduanReducer.formPengaduan.saksi == undefined ? 'Tidak ada saksi' : PengaduanReducer.formPengaduan.saksi} onChangeText={(value) => onChangePengaduan(value, 'saksi')} />
                 <Text
                   style={{

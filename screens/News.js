@@ -10,10 +10,10 @@ const News = ({navigation}) => {
   const [isLoading, setisLoading] = useState(true);
 
   useEffect(() => {
-    getnewdata()
+    getnewsdata()
   },[news])
 
-  const getnewdata = async () => {
+  const getnewsdata = async () => {
     const {data,message} = await getnewsapi()
     if (message == 200) {
       // handle 200

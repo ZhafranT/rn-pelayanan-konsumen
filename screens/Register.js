@@ -17,7 +17,6 @@ const Register = () => {
   const navigation = useNavigation();
   const [mainerrmmsg, setmainerrmmsg] = useState(null);
   const [isLoading, setisLoading] = useState(false);
-  const [isSuccess, setisSuccess] = useState(false);
 
   useEffect(() => {}, [mainerrmmsg, isLoading]);
 
@@ -37,15 +36,13 @@ const Register = () => {
       password: dataRegister.password,
     };
     console.log(body);
-    setisLoading(true);
 
+    setisLoading(true);
     const { data, message } = await registernewdata(body);
-    if (message == 200) {
+    if (message == 201) {
       // handle 200
       setisLoading(false);
-      // setTimeout(() => {
-      //   navigation.navigate('Spalsh');
-      // }, 2000);
+      navigation.navigate('Login');
     } else if (message == 400) {
       // handle 400
       setisLoading(false);
@@ -57,11 +54,13 @@ const Register = () => {
       // no interner
       setisLoading(false);
     }
+    console.log(message);
   };
 
   return (
     <SafeAreaView style={styles.container}>
       <FocusStatusBar barStyle="light-content" background={COLORS.gray} />
+      <Toast />
       <IconBack handlePress={() => navigation.navigate('Login')} />
       <Image source={assets.logo} style={styles.imageLogo} />
       <Text
@@ -197,15 +196,15 @@ const Register = () => {
           )}
         <FormRegis placeholder="Password" secureTextEntry={true} value={RegisterReducer.formRegis.password} onChangeText={(value) => onChangeRegis(value, 'password')} />
       </ScrollView>
-      <Toast />
+
       <View
         style={{
           justifyContent: 'center',
           alignItems: 'center',
           marginBottom: 10,
         }}>
-        {isLoading == true ? <RectButton title="loading..." backgroundColor={'gray'} /> : <RectButton title="Daftar" handlePress={sendData} backgroundColor={COLORS.primary2} />}
-        
+        {/* <RectButton title="Daftar" handlePress={sendData} backgroundColor={COLORS.primary2} /> */}
+        {isLoading == true ? <RectButton title="loading.." backgroundColor={COLORS.primary2} /> : <RectButton title="Daftar" handlePress={sendData} backgroundColor={COLORS.primary2} />}
       </View>
     </SafeAreaView>
   );
