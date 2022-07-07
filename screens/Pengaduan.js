@@ -35,10 +35,10 @@ const Pengaduan = ({ navigation }) => {
   useEffect(() => {}, [jasaorbarang]);
 
   useEffect(async () => {
-    if (await checklogin() === true) {
-      setislogedin(true)
+    if ((await checklogin()) === true) {
+      setislogedin(true);
     }
-  },[])
+  }, []);
 
   const PengaduanReducer = useSelector((state) => state.pengaduanReducer);
   const dispatch = useDispatch();
@@ -195,6 +195,10 @@ const Pengaduan = ({ navigation }) => {
 
   const navigatehome = () => {
     navigation.goBack();
+  };
+
+  const navigatelogin = () => {
+    navigation.navigate('Login');
   };
 
   const navigatestatus = () => {
@@ -506,7 +510,10 @@ const Pengaduan = ({ navigation }) => {
           <Success navigatehome={navigatehome} navigatestatus={navigatestatus} />
         )
       ) : (
-        <Text>Tidak ada akses</Text>
+        <View>
+          <Text>Harus Login Terlebih dulu</Text>
+          <RectButton title="Login" handlePress={navigatelogin} backgroundColor={COLORS.primary2} />
+        </View>
       )}
     </SafeAreaView>
   );
