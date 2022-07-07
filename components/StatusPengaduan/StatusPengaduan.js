@@ -1,35 +1,37 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
 import { SIZES, FONTS, COLORS } from '../../constants';
 
 const StatusPengaduan = ({ item, lookdetail }) => {
   return (
-    <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center', marginVertical: 10 }} onPress={() => lookdetail(item)}>
-      <View
-        style={{
-          width: 355,
-          backgroundColor: COLORS.primary3,
-          paddingHorizontal: 8,
-          marginHorizontal: 10,
-          padding: 8,
-          borderRadius: 8,
-        }}>
+    <ScrollView>
+      <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center', marginVertical: 10 }} onPress={() => lookdetail(item)}>
         <View
           style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
+            width: 355,
+            backgroundColor: COLORS.primary3,
+            paddingHorizontal: 8,
+            marginHorizontal: 10,
+            padding: 8,
+            borderRadius: 8,
           }}>
-          <View>
-            <Text style={styles.textStatus}>{item.nama}</Text>
-            <Text style={styles.textStatus}>{item.jenisPengaduan}</Text>
-          </View>
-          <View style={styles.Status}>
-            <Text style={[styles.textStatus]}>{item.respon_pengaduan.statusPengaduan}</Text>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}>
+            <View>
+              <Text style={styles.textStatus}>{item.nama}</Text>
+              <Text style={styles.textStatus}>{item.jenisPengaduan}</Text>
+            </View>
+            <View style={styles.Status}>
+              <Text style={[styles.textStatus]}>{item.respon_pengaduan.statusPengaduan}</Text>
+            </View>
           </View>
         </View>
-      </View>
-    </TouchableOpacity>
+      </TouchableOpacity>
+    </ScrollView>
   );
 };
 

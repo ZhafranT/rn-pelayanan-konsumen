@@ -10,5 +10,6 @@ import Profile from './Profile';
 import Help from './Help';
 import Notif from './Notif';
 import NewsDetail from './NewsDetail';
+import Akses from './Akses';
 
-export { Home, Login, Register, News, Spalsh, Uupk, Pengaduan, Status, Profile, Help, Notif, NewsDetail };
+export { Akses, Home, Login, Register, News, Spalsh, Uupk, Pengaduan, Status, Profile, Help, Notif, NewsDetail };

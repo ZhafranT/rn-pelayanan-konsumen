@@ -27,7 +27,8 @@ const Login = ({ navigation }) => {
     };
 
     const url = 'https://pelayanan-konsumen.herokuapp.com/api/login';
-    // const url = 'https://7acc-139-0-234-230.ap.ngrok.io/api/login';
+    // const url = 'https://507f-139-194-67-78.ap.ngrok.io/api/login';
+
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -57,7 +58,7 @@ const Login = ({ navigation }) => {
         } else if (res == 400) {
           // setErrmsg(data);
           console.log('Login | 400', data);
-          setErrmsg(data.error)
+          setErrmsg(data.error);
         } else {
           console.log('Login | 500', data);
         }
@@ -96,9 +97,7 @@ const Login = ({ navigation }) => {
           alignItems: 'center',
           marginTop: 10,
         }}>
-          {errmmsg != null && (
-            <Text>{errmmsg}</Text>
-          )}
+        {errmmsg != null && <Text style={styles.texterr}>{errmmsg}</Text>}
         <RectButton title="Login" handlePress={sendData} backgroundColor={COLORS.primary2} />
         <RegisHere handlePress={() => navigation.navigate('Register')} />
       </View>
@@ -130,6 +129,10 @@ const styles = StyleSheet.create({
   imageLogo: {
     padding: 65,
     marginTop: 15,
+  },
+  texterr: {
+    color: COLORS.secondary2,
+    marginBottom: 10,
   },
 });
 

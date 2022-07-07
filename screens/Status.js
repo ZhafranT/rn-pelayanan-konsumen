@@ -75,7 +75,7 @@ const Status = () => {
       {isdetail == false ? (
         <View style={{ flex: 1 }}>
           {isLoading == true ? (
-            <TouchableOpacity style={{ margin: 8, marginRight: 12, marginLeft: 12 }} onPress={null}>
+            <View style={{ margin: 8, marginRight: 12, marginLeft: 12 }} onPress={null}>
               <View
                 style={{
                   backgroundColor: '#17C3B2',
@@ -95,7 +95,7 @@ const Status = () => {
                   <Text>loading...</Text>
                 </View>
               </View>
-            </TouchableOpacity>
+            </View>
           ) : (
             <FlatList
               data={datresp}
