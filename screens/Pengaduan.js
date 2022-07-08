@@ -30,15 +30,8 @@ const Pengaduan = ({ navigation }) => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [jasaorbarang, setjasaorbarang] = useState(null);
   const [image, setImage] = useState(null);
-  const [islogedin, setislogedin] = useState(false);
 
   useEffect(() => {}, [jasaorbarang]);
-
-  useEffect(async () => {
-    if ((await checklogin()) === true) {
-      setislogedin(true);
-    }
-  }, []);
 
   const PengaduanReducer = useSelector((state) => state.pengaduanReducer);
   const dispatch = useDispatch();
@@ -218,7 +211,7 @@ const Pengaduan = ({ navigation }) => {
           Pengaduan
         </Text>
       </View>
-      {islogedin == true ? (
+      {checklogin() != true ? (
         isSuccess != true ? (
           isLoading == false ? (
             <View style={{ flex: 1 }}>
